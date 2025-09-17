@@ -1,0 +1,31 @@
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+self["webpackHotUpdate_N_E"]("app/faq/page",{
+
+/***/ "(app-pages-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-client-entry-loader.js?modules=%7B%22request%22%3A%22%2Fhome%2Ftiaz%2FDevelopment%2FBengalMeat%2Fstyles%2Fgrids.module.css%22%2C%22ids%22%3A%5B%5D%7D&modules=%7B%22request%22%3A%22%2Fhome%2Ftiaz%2FDevelopment%2FBengalMeat%2Fstyles%2Faccordion.module.css%22%2C%22ids%22%3A%5B%5D%7D&server=false!":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/next/dist/build/webpack/loaders/next-flight-client-entry-loader.js?modules=%7B%22request%22%3A%22%2Fhome%2Ftiaz%2FDevelopment%2FBengalMeat%2Fstyles%2Fgrids.module.css%22%2C%22ids%22%3A%5B%5D%7D&modules=%7B%22request%22%3A%22%2Fhome%2Ftiaz%2FDevelopment%2FBengalMeat%2Fstyles%2Faccordion.module.css%22%2C%22ids%22%3A%5B%5D%7D&server=false! ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
+
+eval(__webpack_require__.ts("Promise.resolve(/*! import() eager */).then(__webpack_require__.t.bind(__webpack_require__, /*! ./styles/grids.module.css */ \"(app-pages-browser)/./styles/grids.module.css\", 23));\n;\nPromise.resolve(/*! import() eager */).then(__webpack_require__.t.bind(__webpack_require__, /*! ./styles/accordion.module.css */ \"(app-pages-browser)/./styles/accordion.module.css\", 23));\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKGFwcC1wYWdlcy1icm93c2VyKS8uL25vZGVfbW9kdWxlcy9uZXh0L2Rpc3QvYnVpbGQvd2VicGFjay9sb2FkZXJzL25leHQtZmxpZ2h0LWNsaWVudC1lbnRyeS1sb2FkZXIuanM/bW9kdWxlcz0lN0IlMjJyZXF1ZXN0JTIyJTNBJTIyJTJGaG9tZSUyRnRpYXolMkZEZXZlbG9wbWVudCUyRkJlbmdhbE1lYXQlMkZzdHlsZXMlMkZncmlkcy5tb2R1bGUuY3NzJTIyJTJDJTIyaWRzJTIyJTNBJTVCJTVEJTdEJm1vZHVsZXM9JTdCJTIycmVxdWVzdCUyMiUzQSUyMiUyRmhvbWUlMkZ0aWF6JTJGRGV2ZWxvcG1lbnQlMkZCZW5nYWxNZWF0JTJGc3R5bGVzJTJGYWNjb3JkaW9uLm1vZHVsZS5jc3MlMjIlMkMlMjJpZHMlMjIlM0ElNUIlNUQlN0Qmc2VydmVyPWZhbHNlISIsIm1hcHBpbmdzIjoiQUFBQSxrTEFBOEY7QUFDOUY7QUFDQSwwTEFBa0ciLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9fTl9FLz8yYmRlIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCgvKiB3ZWJwYWNrTW9kZTogXCJlYWdlclwiICovIFwiL2hvbWUvdGlhei9EZXZlbG9wbWVudC9CZW5nYWxNZWF0L3N0eWxlcy9ncmlkcy5tb2R1bGUuY3NzXCIpO1xuO1xuaW1wb3J0KC8qIHdlYnBhY2tNb2RlOiBcImVhZ2VyXCIgKi8gXCIvaG9tZS90aWF6L0RldmVsb3BtZW50L0JlbmdhbE1lYXQvc3R5bGVzL2FjY29yZGlvbi5tb2R1bGUuY3NzXCIpO1xuIl0sIm5hbWVzIjpbXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///(app-pages-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-client-entry-loader.js?modules=%7B%22request%22%3A%22%2Fhome%2Ftiaz%2FDevelopment%2FBengalMeat%2Fstyles%2Fgrids.module.css%22%2C%22ids%22%3A%5B%5D%7D&modules=%7B%22request%22%3A%22%2Fhome%2Ftiaz%2FDevelopment%2FBengalMeat%2Fstyles%2Faccordion.module.css%22%2C%22ids%22%3A%5B%5D%7D&server=false!\n"));
+
+/***/ }),
+
+/***/ "(app-pages-browser)/./styles/accordion.module.css":
+/*!*************************************!*\
+  !*** ./styles/accordion.module.css ***!
+  \*************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+eval(__webpack_require__.ts("// extracted by mini-css-extract-plugin\nmodule.exports = {\"accordion\":\"accordion_accordion__p3enz\",\"item\":\"accordion_item__XtF76\"};\n    if(true) {\n      // 1758096163024\n      var cssReload = __webpack_require__(/*! ./node_modules/next/dist/compiled/mini-css-extract-plugin/hmr/hotModuleReplacement.js */ \"(app-pages-browser)/./node_modules/next/dist/compiled/mini-css-extract-plugin/hmr/hotModuleReplacement.js\")(module.id, {\"publicPath\":\"/_next/\",\"esModule\":false,\"locals\":true});\n      module.hot.dispose(cssReload);\n      \n    }\n  \nmodule.exports.__checksum = \"82051676b441\"\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKGFwcC1wYWdlcy1icm93c2VyKS8uL3N0eWxlcy9hY2NvcmRpb24ubW9kdWxlLmNzcyIsIm1hcHBpbmdzIjoiQUFBQTtBQUNBLGtCQUFrQjtBQUNsQixPQUFPLElBQVU7QUFDakI7QUFDQSxzQkFBc0IsbUJBQU8sQ0FBQyx3TUFBdUgsY0FBYyxzREFBc0Q7QUFDek4sTUFBTSxVQUFVO0FBQ2hCO0FBQ0E7QUFDQTtBQUNBLHlCQUF5QiIsInNvdXJjZXMiOlsid2VicGFjazovL19OX0UvLi9zdHlsZXMvYWNjb3JkaW9uLm1vZHVsZS5jc3M/YTNkMyJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBleHRyYWN0ZWQgYnkgbWluaS1jc3MtZXh0cmFjdC1wbHVnaW5cbm1vZHVsZS5leHBvcnRzID0ge1wiYWNjb3JkaW9uXCI6XCJhY2NvcmRpb25fYWNjb3JkaW9uX19wM2VuelwiLFwiaXRlbVwiOlwiYWNjb3JkaW9uX2l0ZW1fX1h0Rjc2XCJ9O1xuICAgIGlmKG1vZHVsZS5ob3QpIHtcbiAgICAgIC8vIDE3NTgwOTYxNjMwMjRcbiAgICAgIHZhciBjc3NSZWxvYWQgPSByZXF1aXJlKFwiL2hvbWUvdGlhei9EZXZlbG9wbWVudC9CZW5nYWxNZWF0L25vZGVfbW9kdWxlcy9uZXh0L2Rpc3QvY29tcGlsZWQvbWluaS1jc3MtZXh0cmFjdC1wbHVnaW4vaG1yL2hvdE1vZHVsZVJlcGxhY2VtZW50LmpzXCIpKG1vZHVsZS5pZCwge1wicHVibGljUGF0aFwiOlwiL19uZXh0L1wiLFwiZXNNb2R1bGVcIjpmYWxzZSxcImxvY2Fsc1wiOnRydWV9KTtcbiAgICAgIG1vZHVsZS5ob3QuZGlzcG9zZShjc3NSZWxvYWQpO1xuICAgICAgXG4gICAgfVxuICBcbm1vZHVsZS5leHBvcnRzLl9fY2hlY2tzdW0gPSBcIjgyMDUxNjc2YjQ0MVwiXG4iXSwibmFtZXMiOltdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///(app-pages-browser)/./styles/accordion.module.css\n"));
+
+/***/ })
+
+});

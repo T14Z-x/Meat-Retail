@@ -1,0 +1,13 @@
+.footer { background: #0b1220; color: #e2e8f0; margin-top: var(--space-12); }
+.inner { max-width: var(--max-w); margin: 0 auto; padding: var(--space-10) var(--space-4); }
+.cols { display: grid; grid-template-columns: 1fr; gap: var(--space-8); }
+.cols h3 { margin: 0 0 var(--space-3); }
+.cols a { color: #cbd5e1; text-decoration: none; }
+.cols a:hover { text-decoration: underline; }
+.socials { list-style: none; padding: 0; display: flex; gap: var(--space-3); }
+.legal { border-top: 1px solid rgba(255,255,255,0.1); margin-top: var(--space-8); padding-top: var(--space-4); text-align: center; }
+
+@media (min-width: 768px) {
+  .cols { grid-template-columns: repeat(3, 1fr); }
+}
+

@@ -1,0 +1,195 @@
+/*!*************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./app/globals.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+}
+
+main { min-height: 60vh; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+}
+
+
+/*!********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./styles/header.module.css ***!
+  \********************************************************************************************************************************************************************************************************************************************************************/
+.header_header__OaHfl {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  transition: box-shadow 0.2s ease, background 0.2s ease;
+}
+.header_scrolled__bbGUR { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+
+.header_inner__TgSmE {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  grid-gap: var(--space-4);
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+}
+.header_leftGroup__NsJ4v { display: inline-flex; align-items: center; gap: var(--space-3); }
+.header_brand__QdGLf { display: inline-flex; align-items: center; gap: var(--space-2); text-decoration: none; height: 40px; padding: 0 8px; border-radius: 10px; }
+.header_brand__QdGLf:hover { background: #f8fafc; }
+
+.header_nav__q1mtj { display: none; align-items: center; gap: var(--space-4); }
+.header_nav__q1mtj a {
+  color: var(--color-text);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+}
+.header_nav__q1mtj a:hover { color: var(--color-primary); }
+
+.header_utils__ZdAvF { display: inline-flex; align-items: center; gap: var(--space-2); }
+.header_search__EACyU {
+  border: 1px solid var(--color-border);
+  padding: 0 12px;
+  border-radius: 10px;
+  min-width: 160px;
+  height: 40px;
+}
+@media (max-width: 767px) { .header_search__EACyU { display: none; } }
+.header_menuBtn__Amcgq {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: #fff;
+}
+.header_menuBtn__Amcgq:hover { background: #f8fafc; }
+.header_burger__eaiHY { display: inline-flex; flex-direction: column; gap: 4px; }
+.header_burger__eaiHY span { width: 18px; height: 2px; background: #1f2937; display: block; border-radius: 2px; }
+
+/* Show inline nav on larger screens */
+@media (min-width: 1024px) {
+  .header_nav__q1mtj { display: inline-flex; }
+  .header_menuBtn__Amcgq { display: none; }
+}
+
+.header_mobileNav__b2p5H {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 2px;
+  gap: 2px;
+  border-top: 1px solid var(--color-border);
+  background: #ffffff;
+  padding: 0 var(--space-2);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease;
+}
+.header_mobileNav__b2p5H a {
+  display: block;
+  padding: 12px var(--space-2);
+  text-decoration: none;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+}
+.header_mobileNav__b2p5H a:hover { background: #f8fafc; color: var(--color-primary); }
+.header_open__9RSYh { max-height: 100vh; }
+
+/* CTA buttons on right */
+.header_ctaPrimary__N223_,
+.header_ctaSecondary__8qr5W {
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 0 12px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  white-space: nowrap;
+  font-size: 0.95rem;
+}
+.header_ctaPrimary__N223_ { background: var(--color-primary); color: #fff; border-color: transparent; }
+.header_ctaPrimary__N223_:hover { background: var(--color-primary-600); }
+.header_ctaSecondary__8qr5W { background: #fff; color: var(--color-text); }
+.header_ctaSecondary__8qr5W:hover { background: #f8fafc; }
+
+/*!******************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./styles/variables.css ***!
+  \******************************************************************************************************************************************************************************************************************************************************************/
+:root {
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-2xl: 24px;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.5rem;
+  --fs-2xl: 2rem;
+  --max-w: 1200px;
+  --color-bg: #ffffff;
+  --color-text: #0f172a;
+  --color-muted: #475569;
+  --color-primary: #2563eb;
+  --color-primary-600: #1d4ed8;
+  --color-border: #e2e8f0;
+}
+
+
+/*!********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./styles/footer.module.css ***!
+  \********************************************************************************************************************************************************************************************************************************************************************/
+.footer_footer__e_ilT { background: #0b1220; color: #e2e8f0; margin-top: var(--space-12); }
+.footer_inner__4dsmg { max-width: var(--max-w); margin: 0 auto; padding: var(--space-10) var(--space-4); }
+.footer_cols__dXjNy { display: grid; grid-template-columns: 1fr; grid-gap: var(--space-8); gap: var(--space-8); }
+.footer_cols__dXjNy h3 { margin: 0 0 var(--space-3); }
+.footer_cols__dXjNy a { color: #cbd5e1; text-decoration: none; }
+.footer_cols__dXjNy a:hover { text-decoration: underline; }
+.footer_socials___tpCZ { list-style: none; padding: 0; display: flex; gap: var(--space-3); }
+.footer_legal__eLBa0 { border-top: 1px solid rgba(255,255,255,0.1); margin-top: var(--space-8); padding-top: var(--space-4); text-align: center; }
+
+@media (min-width: 768px) {
+  .footer_cols__dXjNy { grid-template-columns: repeat(3, 1fr); }
+}
+
+
