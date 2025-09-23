@@ -1,27 +1,22 @@
 "use client";
 import { useEffect, useRef, useState } from 'react';
-import CategoryCard from '../cards/CategoryCard';
+import OfferCard from '../cards/OfferCard';
 import styles from '../../styles/carousel.module.css';
 
-const categories = [
-  { title: 'Beef' },
-  { title: 'Mutton' },
-  { title: 'Chicken' },
-  { title: 'Seafood' },
-  { title: 'Heat & Eat' },
-  { title: 'Deli' },
+const offers = [
+  { title: 'Weekend Saver', blurb: 'Up to 15% off select cuts', accent: 'orange' as const },
+  { title: 'Heat & Eat Bundle', blurb: 'Buy 2 get 1 free', accent: 'blue' as const },
+  { title: 'Seafood Special', blurb: 'Fresh catch picks at great prices', accent: 'green' as const },
+  { title: 'Deli Deals', blurb: 'Snacks and cold cuts combo', accent: 'slate' as const },
 ];
 
-export default function CategoryGrid() {
+export default function OffersCarousel() {
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const slideRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const original = categories;
-  const clonesBefore = original;
-  const clonesAfter = original;
-  const slides = [...clonesBefore, ...original, ...clonesAfter];
-  const startIndex = clonesBefore.length; // index where originals begin
+  const original = offers;
+  const slides = [...original, ...original, ...original]; // clones for loop
+  const startIndex = original.length;
 
-  const spanWidthRef = useRef<number>(0);
   const indexRef = useRef<number>(startIndex);
 
   const updateTransforms = () => {
@@ -32,23 +27,19 @@ export default function CategoryGrid() {
     let closestDist = Infinity;
     slideRefs.current.forEach((el, idx) => {
       if (!el) return;
-      const rectLeft = el.offsetLeft;
-      const rectWidth = el.clientWidth;
-      const center = rectLeft + rectWidth / 2;
-      const delta = center - vpCenter;
-      const n = delta / vp.clientWidth; // normalized distance by viewport width
-      const maxAngle = 30; // fine-tuned rotation intensity
-      const angle = Math.max(-maxAngle, Math.min(maxAngle, -n * 60));
-      const depth = -Math.min(60, Math.abs(n) * 100);
-      const scale = 1 - Math.min(0.18, Math.abs(n) * 0.22);
-      const inner = el.firstElementChild as HTMLElement | null; // .tilt
+      const center = el.offsetLeft + el.clientWidth / 2;
+      const n = (center - vpCenter) / vp.clientWidth;
+      const maxAngle = 20;
+      const angle = Math.max(-maxAngle, Math.min(maxAngle, -n * 50));
+      const depth = -Math.min(50, Math.abs(n) * 90);
+      const scale = 1 - Math.min(0.14, Math.abs(n) * 0.2);
+      const inner = el.firstElementChild as HTMLElement | null;
       if (inner) {
         inner.style.transform = `translateZ(${depth}px) rotateY(${angle}deg) scale(${scale})`;
         const dist = Math.abs(n);
         if (dist < closestDist) { closestDist = dist; closestIdx = idx; }
       }
     });
-    // mark active
     slideRefs.current.forEach((el, idx) => {
       const inner = el?.firstElementChild as HTMLElement | null;
       if (inner) inner.dataset.active = idx === closestIdx ? 'true' : 'false';
@@ -61,16 +52,13 @@ export default function CategoryGrid() {
     const firstOriginal = slideRefs.current[startIndex];
     const afterOriginal = slideRefs.current[startIndex + original.length];
     if (!firstOriginal || !afterOriginal) return;
-
     const start = firstOriginal.offsetLeft;
     const span = afterOriginal.offsetLeft - start;
-    spanWidthRef.current = span;
-
     if (vp.scrollLeft < start - 1) {
-      vp.scrollLeft += span; // jump forward by one span
+      vp.scrollLeft += span;
       indexRef.current += original.length;
     } else if (vp.scrollLeft >= start + span) {
-      vp.scrollLeft -= span; // jump back by one span
+      vp.scrollLeft -= span;
       indexRef.current -= original.length;
     }
   };
@@ -78,35 +66,18 @@ export default function CategoryGrid() {
   useEffect(() => {
     const vp = viewportRef.current;
     if (!vp) return;
-
-    // Set initial position to the first original slide
     const firstOriginal = slideRefs.current[startIndex];
     if (firstOriginal) {
       vp.scrollLeft = firstOriginal.offsetLeft;
       indexRef.current = startIndex;
     }
-
-    const onScroll = () => {
-      ensureLoop();
-      updateTransforms();
-    };
+    const onScroll = () => { ensureLoop(); updateTransforms(); };
     updateTransforms();
     vp.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
-    return () => {
-      vp.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
+    return () => { vp.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); };
   }, []);
 
-  const scrollByAmount = (dir: -1 | 1) => {
-    const vp = viewportRef.current;
-    if (!vp) return;
-    const amount = Math.max(240, Math.floor(vp.clientWidth * 0.8));
-    vp.scrollBy({ left: dir * amount, behavior: 'smooth' });
-  };
-
-  // Auto-play: continuously scroll to the right; pause on hover/touch/focus
   const [paused, setPaused] = useState(false);
   const [reduce, setReduce] = useState(false);
   const [inView, setInView] = useState(true);
@@ -126,7 +97,7 @@ export default function CategoryGrid() {
     }, { threshold: 0.1 });
     io.observe(vp);
     let timer: any;
-    const interval = 2500; // ms per slide
+    const interval = 3000; // slower cadence for offers
     const goNext = () => {
       if (paused || reduce) return schedule();
       const next = indexRef.current + 1;
@@ -139,65 +110,40 @@ export default function CategoryGrid() {
       }
       schedule();
     };
-    const schedule = () => {
-      clearTimeout(timer);
-      timer = setTimeout(goNext, interval);
-    };
+    const schedule = () => { clearTimeout(timer); timer = setTimeout(goNext, interval); };
     schedule();
     return () => { clearTimeout(timer); io.disconnect(); };
   }, [paused, reduce, inView]);
 
+  const scrollByAmount = (dir: -1 | 1) => {
+    const vp = viewportRef.current;
+    if (!vp) return;
+    const amount = Math.max(240, Math.floor(vp.clientWidth * 0.5)); // 50% for two-up
+    vp.scrollBy({ left: dir * amount, behavior: 'smooth' });
+  };
+
   return (
     <div
-      className={styles.carousel}
-      aria-label="Featured categories carousel"
+      className={[styles.carousel, styles.twoUp].join(' ')}
+      aria-label="Offers carousel"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={() => setPaused(true)}
       onTouchEnd={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
-      onBlur={() => setPaused(false)}
     >
-      <button
-        type="button"
-        className={[styles.navBtn, styles.prev].join(' ')}
-        aria-label="Previous categories"
-        onClick={() => scrollByAmount(-1)}
-      >
-        ‹
-      </button>
-
-      <div
-        ref={viewportRef}
-        className={styles.viewport}
-        role="region"
-        aria-roledescription="carousel"
-        tabIndex={0}
-      >
+      <button type="button" className={[styles.navBtn, styles.prev].join(' ')} aria-label="Previous" onClick={() => scrollByAmount(-1)}>‹</button>
+      <div ref={viewportRef} className={styles.viewport} role="region" aria-roledescription="carousel" tabIndex={0}>
         <div className={styles.track}>
-          {slides.map((c, i) => (
-            <div
-              className={styles.slide}
-              key={`${c.title}-${i}`}
-              ref={(el) => (slideRefs.current[i] = el)}
-            >
+          {slides.map((o, i) => (
+            <div className={styles.slide} key={`${o.title}-${i}`} ref={(el) => (slideRefs.current[i] = el)}>
               <div className={styles.tilt}>
-                <CategoryCard title={c.title} />
+                <OfferCard title={o.title} blurb={o.blurb} accent={o.accent} />
               </div>
             </div>
           ))}
         </div>
       </div>
-
-      <button
-        type="button"
-        className={[styles.navBtn, styles.next].join(' ')}
-        aria-label="Next categories"
-        onClick={() => scrollByAmount(1)}
-      >
-        ›
-      </button>
-      {/* Dots */}
+      <button type="button" className={[styles.navBtn, styles.next].join(' ')} aria-label="Next" onClick={() => scrollByAmount(1)}>›</button>
       <div className={styles.dots} aria-label="Slide indicators">
         {original.map((_, i) => {
           const current = ((indexRef.current - startIndex) % original.length + original.length) % original.length;
@@ -207,7 +153,7 @@ export default function CategoryGrid() {
               key={i}
               className={styles.dot}
               aria-current={isCurrent}
-              aria-label={`Go to slide ${i + 1}`}
+              aria-label={`Go to offer ${i + 1}`}
               onClick={() => {
                 const vp = viewportRef.current;
                 const el = slideRefs.current[startIndex + i];

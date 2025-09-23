@@ -29,6 +29,11 @@
   transition: transform 400ms ease;
   transform-origin: center center;
 }
+.tilt[data-active="true"] { box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+
+.dots { display: flex; justify-content: center; gap: 8px; margin-top: var(--space-3); }
+.dot { width: 8px; height: 8px; border-radius: 999px; background: #cbd5e1; border: none; cursor: pointer; padding: 0; }
+.dot[aria-current="true"] { background: var(--color-primary); }
 
 @media (min-width: 768px) {
   .slide { width: clamp(200px, 30vw, 240px); }
@@ -53,11 +58,12 @@
   font-weight: 700;
   color: #111827;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  z-index: 5;
 }
 .navBtn:hover { background: #fff; }
 .navBtn:focus-visible { outline: 3px solid #2563eb; outline-offset: 2px; }
-.prev { left: -6px; }
-.next { right: -6px; }
+.prev { left: 8px; }
+.next { right: 8px; }
 
 @media (max-width: 480px) {
   .prev { left: 4px; }
@@ -65,3 +71,12 @@
 }
 
 .disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Two-up variant for offers: show ~2 cards per viewport on larger screens */
+.twoUp .slide { width: 85%; }
+@media (min-width: 640px) {
+  .twoUp .slide { width: 60%; }
+}
+@media (min-width: 1024px) {
+  .twoUp .slide { width: calc(50% - var(--space-4)); }
+}

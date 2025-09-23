@@ -6,6 +6,7 @@ import SectionHeading from '../components/ui/SectionHeading';
 import CategoryGrid from '../components/composite/CategoryGrid';
 import ProductGrid from '../components/composite/ProductGrid';
 import ValueProps from '../components/composite/ValueProps';
+import OffersCarousel from '../components/composite/OffersCarousel';
 
 export default function HomePage() {
   return (
@@ -32,6 +33,10 @@ export default function HomePage() {
         <Container>
           <SectionHeading id="categories-heading" title="Featured Categories" subtitle="Explore a variety of fresh options" />
           <CategoryGrid />
+          <div style={{ marginTop: '24px' }}>
+            <SectionHeading title="Current Offers" subtitle="Limited-time deals and bundles" />
+            <OffersCarousel />
+          </div>
         </Container>
       </section>
 
