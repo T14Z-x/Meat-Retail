@@ -2,23 +2,15 @@
 import { useEffect, useRef, useState } from 'react';
 import CategoryCard from '../cards/CategoryCard';
 import styles from '../../styles/carousel.module.css';
-
-const categories = [
-  { title: 'Beef' },
-  { title: 'Mutton' },
-  { title: 'Chicken' },
-  { title: 'Seafood' },
-  { title: 'Heat & Eat' },
-  { title: 'Deli' },
-];
+import { categories, Category } from '../../lib/categories';
 
 export default function CategoryGrid() {
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const slideRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const original = categories;
-  const clonesBefore = original;
-  const clonesAfter = original;
-  const slides = [...clonesBefore, ...original, ...clonesAfter];
+  const original: Category[] = categories;
+  const clonesBefore: Category[] = original;
+  const clonesAfter: Category[] = original;
+  const slides: Category[] = [...clonesBefore, ...original, ...clonesAfter];
   const startIndex = clonesBefore.length; // index where originals begin
 
   const spanWidthRef = useRef<number>(0);
@@ -182,7 +174,7 @@ export default function CategoryGrid() {
               ref={(el) => (slideRefs.current[i] = el)}
             >
               <div className={styles.tilt}>
-                <CategoryCard title={c.title} />
+                <CategoryCard title={c.title} src={c.src} />
               </div>
             </div>
           ))}

@@ -1,15 +1,59 @@
 .hero {
-  background: linear-gradient(135deg, #fee2e2, #f1f5f9);
-  /* If /public/hero/hero-1.jpg is added, uncomment to use it: */
-  /* background-image: url('/hero/hero-1.jpg'); background-size: cover; background-position: center; */
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('/hero/hero-1.webp');
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(1);
+  will-change: transform;
+  animation: heroZoom 16s ease-in-out infinite alternate;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* Fallback overlay */
+  background: linear-gradient(135deg, rgba(3, 165, 80, 0.22), rgba(255, 118, 21, 0.18));
+  /* Prefer modern color-mix when available */
+  background: linear-gradient(135deg, color-mix(in oklab, var(--color-primary) 22%, transparent), color-mix(in oklab, var(--color-accent) 18%, transparent));
 }
 .heroInner {
   max-width: var(--max-w);
   margin: 0 auto;
   padding: clamp(48px, 8vw, 120px) var(--space-4);
+  position: relative;
+  z-index: 1;
 }
-.title { font-size: clamp(2rem, 4vw, 3rem); margin: 0 0 var(--space-3); }
-.subhead { margin: 0 0 var(--space-6); color: var(--color-muted); font-size: var(--fs-lg); }
+.title { font-size: clamp(2rem, 4vw, 3rem); margin: 0 0 var(--space-3); color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,0.35); }
+.subhead {
+  margin: 0 0 var(--space-6);
+  color: #fff;
+  font-size: var(--fs-lg);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+  /* Add readable pill background */
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 8px 12px;
+  border-radius: 12px;
+  backdrop-filter: saturate(120%) blur(2px);
+}
 .ctaRow { display: flex; gap: var(--space-3); flex-wrap: wrap; }
-.badges { display: flex; gap: var(--space-4); margin-top: var(--space-6); padding: 0; list-style: none; color: #0b1220; }
+.badges { display: flex; gap: var(--space-4); margin-top: var(--space-6); padding: 0; list-style: none; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.35); }
+.badges li {
+  background: rgba(0, 0, 0, 0.45);
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  line-height: 1.2;
+}
 
+@keyframes heroZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}

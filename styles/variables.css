@@ -18,11 +18,19 @@
   --fs-xl: 1.5rem;
   --fs-2xl: 2rem;
   --max-w: 1200px;
-  --color-bg: #ffffff;
+  /* Font families */
+  --ff-title: 'Nunito', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --ff-body: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  /* Canvas & typography */
+  --color-bg: #F5FFEE; /* light mint canvas */
   --color-text: #0f172a;
   --color-muted: #475569;
-  --color-primary: #2563eb;
-  --color-primary-600: #1d4ed8;
+  /* Brand palette: Shukria Meat (2025) */
+  --color-primary: #03A550; /* primary green */
+  --color-primary-600: #00693F; /* deep green (hover) */
+  --color-accent: #FF7615; /* orange */
+  --color-accent-600: #FA361C; /* deep orange */
+  --color-success: #78CC00; /* lime */
+  --color-surface: #ffffff; /* cards */
   --color-border: #e2e8f0;
 }
-

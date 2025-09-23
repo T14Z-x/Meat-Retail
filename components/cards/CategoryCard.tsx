@@ -18,12 +18,18 @@ const placeholder = (label: string) =>
 export default function CategoryCard({ title, src }: Props) {
   const img = src ?? placeholder(title);
   return (
-    <article className={styles.card}>
+    <article className={[styles.card, styles.categoryCard].join(' ')}>
       <div className={styles.ratio}>
-        <Image src={img} alt={title} fill className={styles.imgFill} />
+        <Image
+          src={img}
+          alt={title}
+          fill
+          className={styles.imgFill}
+          sizes="(min-width: 1024px) 25vw, 60vw"
+          unoptimized
+        />
       </div>
       <h3 className={styles.cardTitle}>{title}</h3>
     </article>
   );
 }
-

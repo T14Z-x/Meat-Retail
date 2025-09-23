@@ -43,13 +43,20 @@ export default function Header() {
             </span>
           </button>
           <Link href="/" className={styles.brand} aria-label="Home">
-            <Image src="/brand/logo.svg" alt="Brand" width={120} height={32} />
+            <Image
+              src="/logo/Shukria%20Meat%20logo-01.png"
+              alt="Shukria Meat"
+              width={448}
+              height={112}
+              className={styles.brandLogo}
+              priority
+            />
           </Link>
         </div>
         <nav className={styles.nav} aria-label="Primary">
           <Link href="/" className={isActive("/") ? styles.active : undefined} aria-current={isActive("/") ? 'page' : undefined}>HOME</Link>
           <Link href="/categories" className={isActive("/categories") ? styles.active : undefined} aria-current={isActive("/categories") ? 'page' : undefined}>CATEGORY</Link>
-          <Link href="/heat-eat" className={isActive("/heat-eat") ? styles.active : undefined} aria-current={isActive("/heat-eat") ? 'page' : undefined}>HEAT &amp; EAT</Link>
+          <Link href="/products" className={isActive("/products") ? styles.active : undefined} aria-current={isActive("/products") ? 'page' : undefined}>PRODUCTS</Link>
           <Link href="/our-outlets" className={isActive("/our-outlets") ? styles.active : undefined} aria-current={isActive("/our-outlets") ? 'page' : undefined}>OUTLETS</Link>
           <Link href="/faq" className={isActive("/faq") ? styles.active : undefined} aria-current={isActive("/faq") ? 'page' : undefined}>FAQ</Link>
           <Link href="/about" className={isActive("/about") ? styles.active : undefined} aria-current={isActive("/about") ? 'page' : undefined}>ABOUT US</Link>
@@ -68,7 +75,7 @@ export default function Header() {
       >
         <Link href="/" onClick={() => setOpen(false)} className={isActive("/") ? styles.active : undefined}>HOME</Link>
         <Link href="/categories" onClick={() => setOpen(false)} className={isActive("/categories") ? styles.active : undefined}>CATEGORY</Link>
-        <Link href="/heat-eat" onClick={() => setOpen(false)} className={isActive("/heat-eat") ? styles.active : undefined}>HEAT &amp; EAT</Link>
+        <Link href="/products" onClick={() => setOpen(false)} className={isActive("/products") ? styles.active : undefined}>PRODUCTS</Link>
         <Link href="/our-outlets" onClick={() => setOpen(false)} className={isActive("/our-outlets") ? styles.active : undefined}>OUTLETS</Link>
         <Link href="/faq" onClick={() => setOpen(false)} className={isActive("/faq") ? styles.active : undefined}>FAQ</Link>
         <Link href="/about" onClick={() => setOpen(false)} className={isActive("/about") ? styles.active : undefined}>ABOUT US</Link>

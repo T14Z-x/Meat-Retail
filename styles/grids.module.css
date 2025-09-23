@@ -15,12 +15,14 @@
   .gridFourTight { grid-template-columns: repeat(4, 1fr); }
 }
 
-.valueProp { display: flex; gap: var(--space-3); align-items: flex-start; border: 1px solid var(--color-border); padding: var(--space-4); border-radius: var(--radius-lg); }
-.icon { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 999px; background: #e0f2fe; color: #075985; font-weight: 700; }
+.valueProp { display: flex; gap: var(--space-3); align-items: flex-start; outline: 1px solid #000; outline-offset: -1px; padding: var(--space-4); border-radius: var(--radius-lg); background: var(--color-accent); color: #ffffff; }
+.valueProp h3 { margin: 0 0 4px 0; color: #ffffff; }
+.valueProp p { margin: 0; color: rgba(255,255,255,0.9); }
+/* Brand-friendly icon chip */
+.icon { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 999px; background: #ffffff; color: var(--color-accent); font-weight: 700; }
 
 .outletSearch { display: grid; grid-template-columns: 1fr auto; gap: var(--space-3); margin-bottom: var(--space-4); }
 .outletList { list-style: none; padding: 0; display: grid; gap: var(--space-3); margin-bottom: var(--space-6); }
 
 .newsletter { display: grid; gap: var(--space-3); grid-template-columns: 1fr auto; align-items: center; }
 .helper { grid-column: 1 / -1; color: var(--color-muted); font-size: var(--fs-sm); }
-

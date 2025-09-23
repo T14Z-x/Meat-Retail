@@ -1,0 +1,80 @@
+.menu {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+  }
+}
+
+.pager {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.navBtn {
+  border: none;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: #ffffff;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 180ms ease, transform 180ms ease;
+}
+.navBtn:hover:not(:disabled) {
+  background: var(--color-primary-600);
+  transform: translateY(-1px);
+}
+.navBtn:disabled {
+  background: color-mix(in oklab, var(--color-primary) 30%, #e2e8f0);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.pageIndicator {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.pageDots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--color-primary) 48%, var(--color-border));
+  background: #ffffff;
+  cursor: pointer;
+  padding: 0;
+}
+.dotActive {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.dot:focus-visible {
+  outline-offset: 4px;
+}
+
+.placeholder {
+  border: 1px dashed color-mix(in oklab, var(--color-primary) 42%, var(--color-border));
+  border-radius: var(--radius-lg);
+  min-height: 100%;
+  background: color-mix(in oklab, var(--color-primary) 4%, #ffffff);
+}

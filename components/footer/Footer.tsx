@@ -12,7 +12,7 @@ export default function Footer() {
             <ul>
               <li><Link href="/">Home</Link></li>
               <li><Link href="/categories">Categories</Link></li>
-              <li><Link href="/heat-eat">Heat &amp; Eat</Link></li>
+              <li><Link href="/products">Products</Link></li>
               <li><Link href="/our-outlets">Our Outlets</Link></li>
               <li><Link href="/faq">FAQ</Link></li>
               <li><Link href="/about">About us</Link></li>

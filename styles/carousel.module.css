@@ -10,7 +10,10 @@
   padding: var(--space-2) 0;
   perspective: 1000px;
 }
-.viewport:focus { outline: none; }
+.viewport:focus-visible {
+  outline: 3px solid color-mix(in oklab, var(--color-primary) 40%, transparent);
+  outline-offset: 4px;
+}
 .viewport::-webkit-scrollbar { display: none; }
 .viewport { scrollbar-width: none; }
 
@@ -61,7 +64,7 @@
   z-index: 5;
 }
 .navBtn:hover { background: #fff; }
-.navBtn:focus-visible { outline: 3px solid #2563eb; outline-offset: 2px; }
+.navBtn:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 2px; }
 .prev { left: 8px; }
 .next { right: 8px; }
 

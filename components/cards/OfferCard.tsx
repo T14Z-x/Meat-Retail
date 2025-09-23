@@ -10,16 +10,16 @@ type Props = {
 };
 
 export default function OfferCard({ title, blurb, cta = 'Shop Offer', href = '/categories', accent = 'blue' }: Props) {
+  const btnVariant = accent === 'green' || accent === 'orange' ? 'secondary' : 'primary';
   return (
     <article className={[styles.offerCard, styles[accent]].join(' ')}>
       <div className={styles.ratio}>
         <div className={styles.content}>
           <h3>{title}</h3>
           <p>{blurb}</p>
-          <Button href={href} variant="primary">{cta}</Button>
+          <Button href={href} variant={btnVariant}>{cta}</Button>
         </div>
       </div>
     </article>
   );
 }
-

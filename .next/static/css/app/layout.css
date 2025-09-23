@@ -1,0 +1,285 @@
+/*!*************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./app/globals.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito:wght@400;700&display=swap');
+
+:root {
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--ff-body);
+  line-height: 1.5;
+  background: var(--color-bg);
+}
+
+main { min-height: 60vh; }
+
+/* Typography system */
+h1, h2, h3, h4, h5, h6 { font-family: var(--ff-title); font-weight: 700; letter-spacing: 0.01em; }
+p { font-family: var(--ff-body); font-weight: 400; }
+
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/*!********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./styles/header.module.css ***!
+  \********************************************************************************************************************************************************************************************************************************************************************/
+.header_header__OaHfl {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #ffffff;
+  border-bottom: 1px solid var(--color-border);
+  transition: box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  --header-h: 96px;
+  position: relative; /* anchor for absolute mobile menu */
+}
+.header_scrolled__bbGUR { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+
+.header_inner__TgSmE {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  grid-gap: var(--space-4);
+  gap: var(--space-4);
+  height: var(--header-h);
+  padding: 0 var(--space-4);
+}
+.header_leftGroup__NsJ4v { display: inline-flex; align-items: center; gap: var(--space-3); }
+.header_brand__QdGLf { display: inline-flex; align-items: center; gap: var(--space-2); text-decoration: none; height: 80px; padding: 0 8px; border-radius: 10px; }
+.header_brand__QdGLf:hover { background: #f8fafc; }
+
+/* Fixed logo sizing inside brand */
+.header_brandLogo__7p2pC { height: 80px; width: auto; display: block; }
+
+/* Scale up logo on desktop to match reference */
+@media (min-width: 1024px) {
+  .header_header__OaHfl { --header-h: 128px; }
+  .header_brand__QdGLf { height: 112px; }
+  .header_brandLogo__7p2pC { height: 112px; }
+}
+
+.header_nav__q1mtj { display: none; align-items: center; gap: var(--space-4); }
+.header_nav__q1mtj a {
+  color: var(--color-text);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.header_nav__q1mtj a:hover { color: var(--color-primary); }
+/* Active nav pill on light */
+.header_active__fc8a0 { color: var(--color-primary); background: #E9FBF2; padding: 8px 10px; border-radius: 8px; }
+
+.header_utils__ZdAvF { display: inline-flex; align-items: center; gap: var(--space-2); }
+.header_search__EACyU {
+  border: 1px solid color-mix(in oklab, var(--color-primary) 35%, #ffffff);
+  background: #ffffff;
+  color: var(--color-text);
+  padding: 0 12px;
+  border-radius: 10px;
+  min-width: 160px;
+  height: 40px;
+}
+.header_search__EACyU::placeholder { color: var(--color-muted); }
+.header_search__EACyU:focus-visible { outline: 3px solid color-mix(in oklab, var(--color-primary) 35%, #ffffff); outline-offset: 2px; }
+@media (max-width: 767px) { .header_search__EACyU { display: none; } }
+.header_menuBtn__Amcgq {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--color-primary) 96%, #ffffff) 0%, var(--color-primary-600) 100%);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(11, 167, 94, 0.25), inset 0 1px 0 rgba(255,255,255,0.25);
+  transition: transform 0.12s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.header_menuBtn__Amcgq:hover { background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary-600) 100%); box-shadow: 0 8px 20px rgba(11, 167, 94, 0.3), inset 0 1px 0 rgba(255,255,255,0.25); }
+.header_menuBtn__Amcgq:active { transform: translateY(1px); }
+.header_burger__eaiHY {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+/* Render elegant dots instead of lines */
+.header_burger__eaiHY span {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  background: #fff;
+  border-radius: 999px;
+  display: block;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+.header_burger__eaiHY span:nth-child(1) { left: 0; }
+.header_burger__eaiHY span:nth-child(2) { left: 50%; transform: translate(-50%, -50%); }
+.header_burger__eaiHY span:nth-child(3) { right: 0; }
+
+/* Morph into an "X" when expanded */
+.header_burger__eaiHY::before,
+.header_burger__eaiHY::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transform: translate(-50%, -50%) rotate(0deg) scaleX(0);
+  opacity: 0;
+  transition: transform 220ms ease, opacity 220ms ease;
+}
+.header_menuBtn__Amcgq[aria-expanded="true"] .header_burger__eaiHY span { opacity: 0; transform: translateY(-50%) scale(0.6); }
+.header_menuBtn__Amcgq[aria-expanded="true"] .header_burger__eaiHY::before { opacity: 1; transform: translate(-50%, -50%) rotate(45deg) scaleX(1); }
+.header_menuBtn__Amcgq[aria-expanded="true"] .header_burger__eaiHY::after { opacity: 1; transform: translate(-50%, -50%) rotate(-45deg) scaleX(1); }
+
+/* Show inline nav on larger screens */
+@media (min-width: 1024px) {
+  .header_nav__q1mtj { display: inline-flex; }
+  .header_menuBtn__Amcgq { display: none; }
+}
+
+.header_mobileNav__b2p5H {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 2px;
+  gap: 2px;
+  border-top: none;
+  background: #ffffff;
+  padding: 0 var(--space-2);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease, background 0.2s ease;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 40;
+}
+.header_mobileNav__b2p5H a {
+  display: block;
+  padding: 12px var(--space-2);
+  text-decoration: none;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+}
+.header_mobileNav__b2p5H a:hover { background: #f8fafc; color: var(--color-primary); }
+.header_open__9RSYh { max-height: 100vh; }
+
+/* Brand open state: green sheet, no lines, white text */
+.header_mobileNav__b2p5H.header_open__9RSYh {
+  background: #ffffff;
+  padding: var(--space-2);
+}
+.header_mobileNav__b2p5H.header_open__9RSYh a { color: var(--color-text); border-bottom: none; border-radius: 10px; }
+.header_mobileNav__b2p5H.header_open__9RSYh a:hover { background: #f8fafc; color: var(--color-primary); }
+.header_mobileNav__b2p5H.header_open__9RSYh a:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
+/* Override generic .active inside mobile sheet */
+.header_mobileNav__b2p5H.header_open__9RSYh a.header_active__fc8a0 { background: #E9FBF2; color: var(--color-primary); }
+
+/* CTA buttons on right */
+.header_ctaPrimary__N223_,
+.header_ctaSecondary__8qr5W {
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 0 12px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  white-space: nowrap;
+  font-size: 0.95rem;
+}
+.header_ctaPrimary__N223_ { background: var(--color-primary); color: #fff; border-color: transparent; }
+.header_ctaPrimary__N223_:hover { background: var(--color-primary-600); }
+.header_ctaSecondary__8qr5W { background: #ffffff; color: var(--color-text); border-color: var(--color-primary); }
+.header_ctaSecondary__8qr5W:hover { background: #f8fafc; }
+
+/*!******************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./styles/variables.css ***!
+  \******************************************************************************************************************************************************************************************************************************************************************/
+:root {
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-2xl: 24px;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.5rem;
+  --fs-2xl: 2rem;
+  --max-w: 1200px;
+  /* Font families */
+  --ff-title: 'Nunito', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --ff-body: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  /* Canvas & typography */
+  --color-bg: #F5FFEE; /* light mint canvas */
+  --color-text: #0f172a;
+  --color-muted: #475569;
+  /* Brand palette: Shukria Meat (2025) */
+  --color-primary: #03A550; /* primary green */
+  --color-primary-600: #00693F; /* deep green (hover) */
+  --color-accent: #FF7615; /* orange */
+  --color-accent-600: #FA361C; /* deep orange */
+  --color-success: #78CC00; /* lime */
+  --color-surface: #ffffff; /* cards */
+  --color-border: #e2e8f0;
+}
+
+/*!********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./styles/footer.module.css ***!
+  \********************************************************************************************************************************************************************************************************************************************************************/
+.footer_footer__e_ilT { background: #00693F; color: #e8f5ee; margin-top: var(--space-12); }
+.footer_inner__4dsmg { max-width: var(--max-w); margin: 0 auto; padding: var(--space-10) var(--space-4); }
+.footer_cols__dXjNy { display: grid; grid-template-columns: 1fr; grid-gap: var(--space-8); gap: var(--space-8); }
+.footer_cols__dXjNy h3 { margin: 0 0 var(--space-3); }
+.footer_cols__dXjNy a { color: #ffffff; text-decoration: none; }
+.footer_cols__dXjNy a:hover { text-decoration: underline; }
+.footer_socials___tpCZ { list-style: none; padding: 0; display: flex; gap: var(--space-3); }
+.footer_legal__eLBa0 { border-top: 1px solid rgba(255,255,255,0.2); margin-top: var(--space-8); padding-top: var(--space-4); text-align: center; }
+
+@media (min-width: 768px) {
+  .footer_cols__dXjNy { grid-template-columns: repeat(3, 1fr); }
+}
+
