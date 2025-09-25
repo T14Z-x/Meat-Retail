@@ -23,8 +23,13 @@ const placeholder = (label: string) =>
 
 export default function ProductCard({ slug, name, blurb, price, src }: Props) {
   const img = src ?? placeholder(name);
+  const productId = slug ?? name;
   return (
-    <article className={[styles.card, styles.productCard].join(' ')}>
+    <article
+      className={[styles.card, styles.productCard].join(' ')}
+      data-product-root
+      data-product-id={productId}
+    >
       <Link href={slug ? `/products/${slug}` : '#'} className={styles.ratio} aria-label={`${name} details`}>
         <Image
           src={img}
@@ -33,6 +38,7 @@ export default function ProductCard({ slug, name, blurb, price, src }: Props) {
           className={styles.imgFill}
           sizes="(min-width: 1024px) 25vw, 60vw"
           unoptimized
+          data-fly-image={productId}
         />
       </Link>
       <div className={styles.cardBody}>

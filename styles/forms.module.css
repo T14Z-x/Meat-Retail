@@ -13,7 +13,10 @@
 }
 .twoCol {}
 @media (min-width: 768px) {
-  .row.twoCol { grid-template-columns: 1fr 1fr; }
+  .row.twoCol {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
 }
 
 .field { display: grid; gap: 6px; }

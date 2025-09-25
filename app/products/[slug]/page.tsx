@@ -20,12 +20,23 @@ export default function ProductPage({ params }: Params) {
   const suggestions = getSuggestions(product.slug, 3);
   return (
     <>
-      <section aria-label="Product detail" className={stylesDetail.wrap}>
+      <section
+        aria-label="Product detail"
+        className={stylesDetail.wrap}
+        data-product-root
+        data-product-id={product.slug}
+      >
         <Container>
           <div className={stylesDetail.grid}>
             <div className={stylesDetail.media}>
               <div className={stylesDetail.ratio}>
-                <Image src={product.src} alt={product.name} fill sizes="(min-width: 1024px) 40vw, 80vw" />
+                <Image
+                  src={product.src}
+                  alt={product.name}
+                  fill
+                  sizes="(min-width: 1024px) 40vw, 80vw"
+                  data-fly-image={product.slug}
+                />
               </div>
             </div>
             <div className={stylesDetail.info}>

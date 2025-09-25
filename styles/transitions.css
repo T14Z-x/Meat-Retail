@@ -1,0 +1,49 @@
+:root {
+  --page-transition-duration: 320ms;
+  --page-transition-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --page-fade-out: 220ms;
+  --page-fade-in: 360ms;
+}
+
+main {
+  view-transition-name: page;
+}
+
+/* Crossfade the outgoing page */
+::view-transition-old(page) {
+  animation: pageOut var(--page-transition-duration) var(--page-transition-ease) forwards;
+}
+
+/* Crossfade the incoming page */
+::view-transition-new(page) {
+  animation: pageIn calc(var(--page-transition-duration) * 1.05) var(--page-transition-ease) forwards;
+}
+
+@keyframes pageOut {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-10px) scale(0.97);
+  }
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateX(10px) scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(page),
+  ::view-transition-new(page) {
+    animation: none;
+  }
+}

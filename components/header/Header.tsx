@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import styles from '../../styles/header.module.css';
 import { useAuth } from '../../contexts/AuthContext';
 import { useCart } from '../../contexts/CartContext';
+import { useTransitionRouter } from '../../lib/useTransitionRouter';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -30,7 +31,12 @@ export default function Header() {
   }, []);
 
   const isActive = useMemo(() => {
-    return (href: string) => (pathname === '/' ? href === '/' : pathname.startsWith(href));
+    return (href: string) => {
+      if (href === '/') {
+        return pathname === '/';
+      }
+      return pathname === href || pathname.startsWith(`${href}/`);
+    };
   }, [pathname]);
 
   // Ensure hamburger closes on route change to keep header height consistent
@@ -123,6 +129,7 @@ function CartMenu() {
   const { items, totalQuantity, formattedTotal, removeItem, clearCart } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const [renderDrawer, setRenderDrawer] = useState(false);
+  const { push } = useTransitionRouter();
 
   const hasItems = items.length > 0;
 
@@ -177,6 +184,7 @@ function CartMenu() {
         className={styles.cartBtn}
         aria-haspopup="dialog"
         aria-expanded={isOpen}
+        data-cart-button="true"
         onClick={() => {
           if (renderDrawer && isOpen) {
             closeDrawer();
@@ -248,7 +256,16 @@ function CartMenu() {
                   <span>Total</span>
                   <strong>{formattedTotal}</strong>
                 </div>
-                <button type="button" className={styles.cartCheckout} disabled={!hasItems}>
+                <button
+                  type="button"
+                  className={styles.cartCheckout}
+                  disabled={!hasItems}
+                  onClick={() => {
+                    if (!hasItems) return;
+                    closeDrawer();
+                    push('/checkout');
+                  }}
+                >
                   Proceed to checkout
                 </button>
               </div>

@@ -1,0 +1,342 @@
+.page {
+  padding: var(--space-8) 0 var(--space-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.layout {
+  display: grid;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  }
+}
+
+.primary,
+.sidebar {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-5);
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+  display: grid;
+  gap: var(--space-4);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-text);
+}
+
+.copy {
+  margin: 0;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+.copy a {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.copy a:hover {
+  text-decoration: underline;
+}
+
+.cardBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--color-primary) 10%, #ffffff 90%);
+  color: var(--color-primary-600);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  white-space: nowrap;
+}
+
+.paymentList {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.paymentOption {
+  border: 1px solid color-mix(in oklab, var(--color-primary) 25%, var(--color-border));
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-3);
+  background: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.paymentOption:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 10px 24px rgba(3, 165, 80, 0.12);
+}
+
+.paymentOption:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 12px 28px rgba(3, 165, 80, 0.14);
+}
+
+.paymentChoice {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.paymentChoice input {
+  margin-top: 6px;
+  accent-color: var(--color-primary);
+}
+
+.paymentOptionActive {
+  border-color: var(--color-primary);
+  box-shadow: 0 16px 30px rgba(3, 165, 80, 0.16);
+  transform: translateY(-2px);
+}
+
+.paymentForm {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.paymentCopy {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.paymentHeading {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.paymentTitle {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.badgeRow {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--color-primary) 16%, #ffffff 84%);
+  color: var(--color-primary-600);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.paymentLead {
+  margin: 0;
+  color: var(--color-muted);
+  font-weight: 600;
+}
+
+.paymentDetails {
+  margin: 0;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+.methodForm {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-3);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.required {
+  color: var(--color-accent-600);
+  margin-left: 4px;
+}
+
+.confirmNote {
+  padding: var(--space-3) var(--space-4);
+  border-left: 4px solid var(--color-accent);
+  background: color-mix(in oklab, var(--color-accent) 12%, #ffffff 88%);
+  border-radius: var(--radius-lg);
+  color: var(--color-muted);
+  font-size: var(--fs-sm);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.helperText {
+  color: var(--color-muted);
+  font-size: var(--fs-sm);
+}
+
+.benefits {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: var(--space-3);
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+.benefits a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.benefits a:hover {
+  text-decoration: underline;
+}
+
+.orderList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.orderItem {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.orderItemName {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.orderItemMeta {
+  display: block;
+  color: var(--color-muted);
+  font-size: var(--fs-sm);
+}
+
+.orderItemTotal {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.summary {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.summaryRow dt {
+  margin: 0;
+  color: var(--color-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.85rem;
+}
+
+.summaryRow dd {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.summaryTotal dd {
+  font-size: 1.2rem;
+  color: var(--color-primary-600);
+}
+
+.currencyNote {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+}
+
+.gatewayGroups {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.gatewayGroup h4 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.gatewayGroup ul {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 6px;
+  color: var(--color-muted);
+}
+
+.gatewayGroup li {
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: var(--space-4);
+  }
+
+  .cardBadge {
+    align-self: flex-start;
+  }
+
+  .paymentChoice {
+    flex-direction: column;
+  }
+
+  .paymentChoice input {
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

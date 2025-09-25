@@ -1,71 +1,251 @@
+import Button from '../../components/ui/Button';
 import Container from '../../components/ui/Container';
 import SectionHeading from '../../components/ui/SectionHeading';
-import styles from '../../styles/accordion.module.css';
+import styles from '../../styles/faq.module.css';
+
+const faqSections = [
+  {
+    id: 'delivery',
+    title: 'Delivery & shipping',
+    blurb: 'Everything you need to know about receiving your chilled order without breaking the chain.',
+    faqs: [
+      {
+        question: 'How long does delivery take?',
+        answer:
+          'Standard local delivery typically arrives within 24–48 hours on business days. Delivery windows are confirmed once your order is packed and may shift slightly during peak seasons or public holidays.',
+      },
+      {
+        question: 'How is the cold-chain maintained?',
+        answer:
+          'Orders leave our 0–4°C staging rooms in insulated totes, then travel in temperature-controlled vehicles. Drivers capture a temperature reading at pickup and drop-off so you can review the journey inside your order history.',
+      },
+      {
+        question: 'What areas do you deliver to?',
+        answer:
+          'We currently serve major city zones and select suburban clusters. If you fall outside our coverage, you can place an order for pickup at one of our flagship outlets or request a concierge transfer (subject to slot availability).',
+      },
+    ],
+  },
+  {
+    id: 'orders',
+    title: 'Ordering & payment',
+    blurb: 'Guidelines for placing, editing, and paying for orders — whether you are a household or a business buyer.',
+    faqs: [
+      {
+        question: 'What payment methods are accepted?',
+        answer:
+          'We accept major debit/credit cards, mobile wallets, and bank transfers. Cash on delivery is available in supported areas, and business accounts can request monthly invoicing subject to credit approval.',
+      },
+      {
+        question: 'Can I modify or cancel my order?',
+        answer:
+          'Orders can be edited or cancelled until they move into dispatch. Drop us a message with your order ID as soon as possible — the fastest way is via live chat or hotline so we can intercept the order before it leaves the chiller.',
+      },
+      {
+        question: 'Will I receive an invoice?',
+        answer:
+          'A digital invoice is emailed right after checkout. You can also download past invoices from the account portal or have our finance desk resend consolidated statements whenever you need them.',
+      },
+    ],
+  },
+  {
+    id: 'quality',
+    title: 'Product care & quality',
+    blurb: 'Storage, freshness, and the safeguards we use to keep premium proteins pristine.',
+    faqs: [
+      {
+        question: 'Are your products fresh or frozen?',
+        answer:
+          'Most catalogue items are delivered fresh and chilled. Select specialty cuts ship frozen to preserve quality; those items are clearly marked online along with thawing instructions and best-before guidance.',
+      },
+      {
+        question: 'How should I store my order after delivery?',
+        answer:
+          'Move chilled items directly into refrigeration between 0–4°C. Anything you plan to cook later than 48 hours should be frozen immediately. Always keep raw proteins on the lowest shelf and sealed to prevent cross-contamination.',
+      },
+      {
+        question: 'What if an item arrives damaged or warm?',
+        answer:
+          'Notify support within 12 hours and include photos of the product and packaging. We will audit the delivery log, arrange a replacement or refund, and investigate the route to prevent repeats.',
+      },
+    ],
+  },
+  {
+    id: 'support',
+    title: 'Returns & concierge support',
+    blurb: 'Whenever something goes off-script, our specialists are ready to help — online or in person.',
+    faqs: [
+      {
+        question: 'Do you offer returns or exchanges?',
+        answer:
+          'Perishable goods are not typically returnable, but we guarantee quality. If something is wrong, contact us and we will credit, replace, or schedule a pickup depending on the situation.',
+      },
+      {
+        question: 'How can I reach customer support quickly?',
+        answer:
+          'For urgent matters, call 09613-777444 or start a WhatsApp conversation. The support inbox is monitored around the clock, but live channels resolve most cases under 10 minutes.',
+      },
+    ],
+  },
+];
+
+const assurances = [
+  {
+    title: 'Certified cold-chain',
+    copy: 'ISO 22000 & HACCP protocols govern our processing, packaging, and transport so every product arrives factory-fresh.',
+  },
+  {
+    title: 'Traceable sourcing',
+    copy: 'Each pack includes batch provenance, slaughter dates, and nutrition markers you can verify from your account dashboard.',
+  },
+  {
+    title: 'Responsive partners',
+    copy: 'Dedicated account managers support restaurants, hotels, and modern retailers with demand planning and menu engineering.',
+  },
+  {
+    title: 'Sustainable promise',
+    copy: 'We consolidate deliveries, optimise routes, and use recyclable packaging to lower the footprint of every chilled journey.',
+  },
+];
+
+const supportChannels = [
+  {
+    title: 'Concierge hotline',
+    copy: 'Ideal for urgent delivery tracking, order edits, or bespoke prep requests. Routes you to a senior support executive immediately.',
+    icon: '☎',
+    action: { label: 'Call 09613-777444', href: 'tel:09613777444' },
+    helper: 'Available 9am – 10pm, including weekends',
+  },
+  {
+    title: 'WhatsApp retail desk',
+    copy: 'Share a grocery list, confirm outlet stock, or upload photos for product advice. Expect a response in under 10 minutes.',
+    icon: '💬',
+    action: { label: 'Message us', href: 'https://wa.me/8801711000000' },
+    helper: 'Live chat support 7 days a week',
+  },
+  {
+    title: 'Email care team',
+    copy: 'For documentation, invoices, or partnership enquiries, drop us an email and receive a detailed follow-up within one business day.',
+    icon: '✉',
+    action: { label: 'support@shukriameat.com', href: 'mailto:support@shukriameat.com' },
+    helper: 'Priority escalation for subscribed partners',
+  },
+];
+
+const timeline = [
+  {
+    title: 'Place your order',
+    copy: 'Browse the range, confirm your preferred delivery window, and add any prep notes for our butchers.',
+  },
+  {
+    title: 'Chilled preparation',
+    copy: 'Products are portioned, vacuum-sealed, and labelled with QR-backed traceability inside 0–4°C clean rooms.',
+  },
+  {
+    title: 'Temperature logged dispatch',
+    copy: 'Your insulated tote is sealed, tagged, and the courier snaps a temperature reading before loading into the van.',
+  },
+  {
+    title: 'Hand-off & follow-up',
+    copy: 'The driver confirms your OTP, hands over the chilled tote, and our system emails handling tips plus care reminders.',
+  },
+];
 
 export default function FAQPage() {
   return (
-    <Container>
-      <SectionHeading title="Frequently Asked Questions" subtitle="Helpful answers about orders, delivery, and quality" />
+    <section className={styles.page}>
+        <div className={styles.wrapper}>
+          <div className={styles.sectionHead}>
+            <SectionHeading
+              title="Answers tailored to your journey"
+              subtitle="From delivery slots to provenance, explore the details that matter most to households and hospitality partners alike."
+            />
+            <p>Need something specific? Reach out via hotline or WhatsApp and we will create a playbook for your team.</p>
+          </div>
 
-      <section aria-labelledby="delivery-heading" className={styles.accordion}>
-        <h3 id="delivery-heading">Delivery & Shipping</h3>
-        <details className={styles.item}>
-          <summary>How long does delivery take?</summary>
-          <p>Standard local delivery typically arrives within 24–48 hours on business days. Delivery windows may vary during peak seasons or public holidays.</p>
-        </details>
-        <details className={styles.item}>
-          <summary>How is the cold-chain maintained?</summary>
-          <p>Orders are packed in insulated materials and transported in temperature-controlled vehicles to ensure products remain chilled from our facility to your doorstep.</p>
-        </details>
-        <details className={styles.item}>
-          <summary>What areas do you deliver to?</summary>
-          <p>We currently serve major city zones. If your address is outside our coverage, you can still place an order for pickup at one of our outlets.</p>
-        </details>
-      </section>
+          <div className={styles.faqGrid}>
+            {faqSections.map((group) => (
+              <article key={group.id} className={styles.faqGroup} aria-labelledby={`${group.id}-heading`}>
+                <header>
+                  <h3 id={`${group.id}-heading`}>{group.title}</h3>
+                  <p>{group.blurb}</p>
+                </header>
+                <div className={styles.accordion}>
+                  {group.faqs.map((faq) => (
+                    <details key={faq.question} className={styles.item}>
+                      <summary>
+                        <span>{faq.question}</span>
+                        <span className={styles.toggleIcon} aria-hidden="true"></span>
+                      </summary>
+                      <p>{faq.answer}</p>
+                    </details>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
 
-      <section aria-labelledby="orders-heading" className={styles.accordion}>
-        <h3 id="orders-heading">Orders & Payment</h3>
-        <details className={styles.item}>
-          <summary>What payment methods are accepted?</summary>
-          <p>We accept major debit/credit cards and select mobile wallets. Cash on Delivery (COD) is available in supported areas.</p>
-        </details>
-        <details className={styles.item}>
-          <summary>Can I modify or cancel my order?</summary>
-          <p>Orders can be edited or canceled before they are dispatched. Contact support with your order ID as soon as possible for assistance.</p>
-        </details>
-        <details className={styles.item}>
-          <summary>Will I receive an invoice?</summary>
-          <p>Your digital invoice is emailed after checkout. You can also request a copy by contacting support with your order details.</p>
-        </details>
-      </section>
+          <div className={styles.sectionHead}>
+            <SectionHeading
+              title="The promises behind every order"
+              subtitle="These operating principles shape how we source, portion, pack, and deliver Shukria Meat products."
+            />
+          </div>
+          <section className={styles.assuranceGrid} aria-label="Service assurances">
+            {assurances.map((item) => (
+              <article key={item.title} className={styles.assuranceCard}>
+                <strong>{item.title}</strong>
+                <p>{item.copy}</p>
+              </article>
+            ))}
+          </section>
 
-      <section aria-labelledby="quality-heading" className={styles.accordion}>
-        <h3 id="quality-heading">Product Quality & Handling</h3>
-        <details className={styles.item}>
-          <summary>Are your products fresh or frozen?</summary>
-          <p>We primarily offer fresh, chilled products. Some items may be frozen for optimal quality; product pages specify handling and storage recommendations.</p>
-        </details>
-        <details className={styles.item}>
-          <summary>How should I store my order after delivery?</summary>
-          <p>Refrigerate chilled items immediately (0–4°C) and freeze items intended for later use. Always follow safe handling guidelines for raw meat and seafood.</p>
-        </details>
-        <details className={styles.item}>
-          <summary>What if an item arrives damaged or warm?</summary>
-          <p>Contact support within 12 hours with photos of the packaging and product. We will investigate and arrange a replacement or refund where applicable.</p>
-        </details>
-      </section>
+          <div className={styles.timeline}>
+            <div className={styles.sectionHead}>
+              <SectionHeading
+                title="From order to doorstep"
+                subtitle="Understand the journey your chilled selections take so you can plan menus and storage with confidence."
+              />
+            </div>
+            <div className={styles.timelineList}>
+              {timeline.map((step, index) => (
+                <div key={step.title} className={styles.timelineItem}>
+                  <span className={styles.timelineBadge}>{index + 1}</span>
+                  <strong>{step.title}</strong>
+                  <p>{step.copy}</p>
+                </div>
+              ))}
+            </div>
+          </div>
 
-      <section aria-labelledby="returns-heading" className={styles.accordion}>
-        <h3 id="returns-heading">Returns & Support</h3>
-        <details className={styles.item}>
-          <summary>Do you offer returns or exchanges?</summary>
-          <p>Perishable goods are not typically returnable, but we stand behind product quality. If something is wrong, reach out and we’ll make it right.</p>
-        </details>
-        <details className={styles.item}>
-          <summary>How can I contact customer support?</summary>
-          <p>Email support@example.com or call +1 000 000 0000. Our team is available 9am–7pm, 7 days a week.</p>
-        </details>
-      </section>
-    </Container>
+          <div className={styles.sectionHead}>
+            <SectionHeading
+              title="Speak with a specialist"
+              subtitle="Our concierge desks stay online so you can request documentation, adjust deliveries, or plan seasonal menus."
+            />
+          </div>
+          <section className={styles.supportGrid} aria-label="Support channels">
+            {supportChannels.map((channel) => (
+              <article key={channel.title} className={styles.supportCard}>
+                <header>
+                  <span className={styles.supportIcon} aria-hidden="true">
+                    {channel.icon}
+                  </span>
+                  <div>
+                    <h4>{channel.title}</h4>
+                    <p>{channel.copy}</p>
+                  </div>
+                </header>
+                <div>
+                  <Button href={channel.action.href} variant="secondary">
+                    {channel.action.label}
+                  </Button>
+                  <p className={styles.supportHelper}>{channel.helper}</p>
+                </div>
+              </article>
+            ))}
+          </section>
+        </div>
+    </section>
   );
 }

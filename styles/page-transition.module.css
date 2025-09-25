@@ -1,0 +1,49 @@
+.transition {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.inner {
+  min-height: 60vh;
+  background: var(--color-bg);
+  will-change: opacity, transform;
+  transform-origin: center;
+}
+
+.exiting .inner {
+  animation: pageFadeOut var(--page-fade-out, 220ms) var(--page-transition-ease) forwards;
+}
+
+.entering .inner {
+  animation: pageFadeIn var(--page-fade-in, 360ms) var(--page-transition-ease) forwards;
+}
+
+@keyframes pageFadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-12px) scale(0.97);
+  }
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(12px) scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exiting .inner,
+  .entering .inner {
+    animation: none;
+  }
+}

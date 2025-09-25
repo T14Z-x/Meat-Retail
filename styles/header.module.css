@@ -125,8 +125,14 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 2px;
-  border-top: none;
-  background: #ffffff;
+  border-top: 4px solid color-mix(in oklab, var(--color-primary) 45%, #ffffff 55%);
+  background: linear-gradient(
+      140deg,
+      color-mix(in oklab, var(--color-bg) 92%, #ffffff 8%) 0%,
+      color-mix(in oklab, var(--color-bg) 75%, var(--color-primary) 25%) 40%,
+      color-mix(in oklab, var(--color-bg) 88%, var(--color-primary) 12%) 100%
+    )
+    no-repeat;
   padding: 0 var(--space-2);
   max-height: 0;
   overflow: hidden;
@@ -149,11 +155,18 @@
 
 /* Brand open state: green sheet, no lines, white text */
 .mobileNav.open {
-  background: #ffffff;
+  background: linear-gradient(
+      150deg,
+      color-mix(in oklab, var(--color-bg) 96%, #ffffff 4%) 0%,
+      color-mix(in oklab, var(--color-bg) 70%, var(--color-primary) 30%) 55%,
+      color-mix(in oklab, var(--color-bg) 85%, var(--color-primary) 15%) 100%
+    )
+    no-repeat;
   padding: var(--space-2);
+  box-shadow: 0 18px 36px rgba(3, 165, 80, 0.18);
 }
-.mobileNav.open a { color: var(--color-text); border-bottom: none; border-radius: 10px; }
-.mobileNav.open a:hover { background: #f8fafc; color: var(--color-primary); }
+.mobileNav.open a { color: var(--color-text); border-bottom: none; border-radius: 10px; background: rgba(255, 255, 255, 0.28); }
+.mobileNav.open a:hover { background: color-mix(in oklab, var(--color-primary) 12%, #ffffff 88%); color: var(--color-primary); }
 .mobileNav.open a:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
 /* Override generic .active inside mobile sheet */
 .mobileNav.open a.active { background: #E9FBF2; color: var(--color-primary); }
@@ -214,6 +227,25 @@
   padding: 0 4px;
 }
 
+.cartBtn[data-pulse='true'] {
+  animation: cartPulse 480ms var(--page-transition-ease, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+@keyframes cartPulse {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.12);
+  }
+  70% {
+    transform: scale(0.96);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .cartOverlay {
   position: fixed;
   inset: 0;
@@ -233,8 +265,15 @@
 .cartDrawer {
   width: min(420px, 90vw);
   height: 100vh;
-  background: #ffffff;
+  background: linear-gradient(
+      140deg,
+      color-mix(in oklab, var(--color-bg) 92%, #ffffff 8%) 0%,
+      color-mix(in oklab, var(--color-bg) 75%, var(--color-primary) 25%) 40%,
+      color-mix(in oklab, var(--color-bg) 88%, var(--color-primary) 12%) 100%
+    )
+    no-repeat;
   box-shadow: -8px 0 28px rgba(15, 23, 42, 0.18);
+  border-left: 0;
   transform: translateX(100%);
   transition: transform 0.28s ease;
   display: flex;

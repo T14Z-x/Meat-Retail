@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useTransitionRouter } from '../../lib/useTransitionRouter';
 import Container from '../../components/ui/Container';
 import SectionHeading from '../../components/ui/SectionHeading';
 import Button from '../../components/ui/Button';
@@ -49,7 +49,7 @@ const phonePattern = '^(?:\\+?88)?01[3-9]\\d{8}$';
 const PASSWORD_MIN_LENGTH = 8;
 
 export default function SignupPage() {
-  const router = useRouter();
+  const { push } = useTransitionRouter();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -131,7 +131,7 @@ export default function SignupPage() {
       });
       setSuccess('Account created. Redirecting to login...');
       setSubmitting(false);
-      router.push(`/login?signup=success&email=${encodeURIComponent(accountEmail)}`);
+      push(`/login?signup=success&email=${encodeURIComponent(accountEmail)}`);
       return;
     } catch (err) {
       console.error('Failed to save signup details', err);

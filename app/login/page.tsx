@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Container from '../../components/ui/Container';
 import SectionHeading from '../../components/ui/SectionHeading';
@@ -9,9 +9,10 @@ import Button from '../../components/ui/Button';
 import formStyles from '../../styles/forms.module.css';
 import { findUser } from '../../lib/authStorage';
 import { useAuth } from '../../contexts/AuthContext';
+import { useTransitionRouter } from '../../lib/useTransitionRouter';
 
 export default function LoginPage() {
-  const router = useRouter();
+  const { push } = useTransitionRouter();
   const searchParams = useSearchParams();
   const initialEmail = searchParams.get('email') ?? '';
   const signupSuccess = searchParams.get('signup') === 'success';
@@ -58,7 +59,7 @@ export default function LoginPage() {
         user.email;
       await signIn(user.email, { name: preferredName });
       setSuccess('Signed in successfully. Redirecting...');
-      router.push('/');
+      push('/');
     } catch (err) {
       console.error('Sign-in failed', err);
       setError('Something went wrong while signing you in. Please try again.');
