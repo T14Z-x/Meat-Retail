@@ -1,12 +1,12 @@
 import { notFound } from 'next/navigation';
 import Container from '../../../components/ui/Container';
 import SectionHeading from '../../../components/ui/SectionHeading';
-import Button from '../../../components/ui/Button';
 import Image from 'next/image';
 import stylesDetail from '../../../styles/product-detail.module.css';
 import gridStyles from '../../../styles/grids.module.css';
 import ProductCard from '../../../components/cards/ProductCard';
 import { allProducts, findProduct, getSuggestions } from '../../../lib/products';
+import AddToCartButton from '../../../components/cart/AddToCartButton';
 
 type Params = { params: { slug: string } };
 
@@ -32,7 +32,14 @@ export default function ProductPage({ params }: Params) {
               <SectionHeading title={product.name} subtitle={product.blurb} />
               <div className={stylesDetail.priceRow}>
                 <span className={stylesDetail.price}>{product.price}</span>
-                <Button variant="primary">Add to Cart</Button>
+                <AddToCartButton
+                  product={{
+                    slug: product.slug,
+                    name: product.name,
+                    price: product.price,
+                    src: product.src,
+                  }}
+                />
               </div>
               <div className={stylesDetail.block}>
                 <h3>Description</h3>
@@ -67,4 +74,3 @@ export default function ProductPage({ params }: Params) {
     </>
   );
 }
-

@@ -1,4 +1,4 @@
-// File: /home/tiaz/Development/BengalMeat/app/signup/page.tsx
+// File: /Users/t14z-x/Desktop/Development/BengalMeat/app/signup/page.tsx
 import * as entry from '../../../../app/signup/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

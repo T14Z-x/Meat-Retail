@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../../styles/cards.module.css';
 import Button from '../ui/Button';
+import AddToCartButton from '../cart/AddToCartButton';
 
 type Props = {
   slug?: string;
@@ -41,11 +42,12 @@ export default function ProductCard({ slug, name, blurb, price, src }: Props) {
         {blurb ? <p className={styles.cardBlurb}>{blurb}</p> : null}
         <div className={styles.cardFooter}>
           <span className={styles.priceBadge}>{price}</span>
-          {slug ? (
-            <Button href={`/products/${slug}`} variant="secondary">View Details</Button>
-          ) : (
-            <Button variant="secondary">Add to Cart</Button>
-          )}
+          <div className={styles.cardActions}>
+            <AddToCartButton
+              product={{ slug: slug ?? name, name, price, src }}
+              variant="secondary"
+            />
+          </div>
         </div>
       </div>
     </article>

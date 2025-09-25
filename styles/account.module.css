@@ -1,0 +1,112 @@
+.page {
+  padding: var(--space-8) 0 var(--space-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.tabList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.tab,
+.tabActive {
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: #ffffff;
+  color: var(--color-text);
+  padding: 8px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.tab:hover {
+  background: #f8fafc;
+}
+
+.tabActive {
+  background: var(--color-primary);
+  border-color: transparent;
+  color: #ffffff;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.panelStack {
+  display: grid;
+  gap: var(--space-4);
+}
+
+@media (min-width: 900px) {
+  .panelStack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.panelCard {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: var(--space-5);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+.panelTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+}
+
+.fieldGrid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.fieldRow {
+  display: grid;
+  gap: 4px;
+}
+
+@media (min-width: 640px) {
+  .fieldRow {
+    grid-template-columns: 220px 1fr;
+    align-items: baseline;
+  }
+}
+
+.fieldLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+}
+
+.fieldValue {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-text);
+  word-break: break-word;
+}
+
+.emptyCopy {
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+.emptyCopy a {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.emptyCopy a:hover {
+  text-decoration: underline;
+}

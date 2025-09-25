@@ -7,7 +7,8 @@ import Container from '../../components/ui/Container';
 import SectionHeading from '../../components/ui/SectionHeading';
 import Button from '../../components/ui/Button';
 import formStyles from '../../styles/forms.module.css';
-import { findUser, setSession } from '../../lib/authStorage';
+import { findUser } from '../../lib/authStorage';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -20,7 +21,9 @@ export default function LoginPage() {
   );
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const { signIn } = useAuth();
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
     setSuccess(null);
@@ -33,7 +36,6 @@ export default function LoginPage() {
       setError('Please enter both email and password.');
       return;
     }
-
     setSubmitting(true);
     const user = findUser(email);
     if (!user) {
@@ -47,11 +49,22 @@ export default function LoginPage() {
       return;
     }
 
-    setSession(user.email);
-    setSuccess('Signed in successfully. Redirecting...');
-    setSubmitting(false);
-    router.push('/');
-    return;
+    try {
+      const emailLocalPart = user.email.split('@')[0] || user.email;
+      const preferredName =
+        user.contactName?.trim() ||
+        user.businessName?.trim() ||
+        emailLocalPart ||
+        user.email;
+      await signIn(user.email, { name: preferredName });
+      setSuccess('Signed in successfully. Redirecting...');
+      router.push('/');
+    } catch (err) {
+      console.error('Sign-in failed', err);
+      setError('Something went wrong while signing you in. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (

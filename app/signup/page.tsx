@@ -19,17 +19,6 @@ const businessTypes = [
   'Franchise / Chain Outlet',
 ];
 
-const productCategories = [
-  { value: 'chilled-beef', label: 'Chilled Beef & Veal' },
-  { value: 'mutton', label: 'Mutton & Lamb' },
-  { value: 'poultry', label: 'Broiler & Free-Range Chicken' },
-  { value: 'duck-goose', label: 'Duck / Goose' },
-  { value: 'processed', label: 'Processed & Ready-to-Cook Items' },
-  { value: 'organs', label: 'Offal / Organ Meat' },
-  { value: 'seafood', label: 'Fish & Seafood (Frozen)' },
-  { value: 'frozen-snacks', label: 'Frozen Snacks & Value Added' },
-];
-
 const deliveryWindows = [
   'Early Morning (6am – 9am)',
   'Late Morning (9am – 12pm)',
@@ -45,8 +34,6 @@ const contactTimes = [
 ];
 
 const yesNoOptions = ['Yes', 'No'] as const;
-const creditOptions = ['Yes', 'No', 'Maybe Later'];
-
 const divisions = [
   'Dhaka',
   'Chattogram',
@@ -56,13 +43,6 @@ const divisions = [
   'Sylhet',
   'Barishal',
   'Mymensingh',
-];
-
-const paymentPreferences = [
-  'Cash on Delivery',
-  'Bank Transfer',
-  'Mobile Wallet (bKash, Nagad, Rocket)',
-  'Corporate Credit Terms',
 ];
 
 const phonePattern = '^(?:\\+?88)?01[3-9]\\d{8}$';
@@ -97,10 +77,58 @@ export default function SignupPage() {
       return;
     }
 
+    const optional = (value: FormDataEntryValue | null) => {
+      if (typeof value !== 'string') return undefined;
+      const trimmed = value.trim();
+      return trimmed ? trimmed : undefined;
+    };
+
     setSubmitting(true);
     try {
-      const businessName = (data.get('businessName') as string | null)?.trim() || undefined;
-      saveUser({ email: accountEmail, password, businessName, createdAt: new Date().toISOString() });
+      const businessName = optional(data.get('businessName'));
+      const businessType = optional(data.get('businessType'));
+      const tradeLicense = optional(data.get('tradeLicense'));
+      const yearsOperating = optional(data.get('yearsOperating'));
+      const onlinePresence = optional(data.get('onlinePresence'));
+      const contactName = optional(data.get('contactName'));
+      const contactRole = optional(data.get('contactRole'));
+      const contactPhone = optional(data.get('contactPhone'));
+      const contactWhatsapp = optional(data.get('contactWhatsapp'));
+      const contactEmail = optional(data.get('contactEmail'));
+      const contactTime = optional(data.get('contactTime'));
+      const deliveryAddress = optional(data.get('deliveryAddress'));
+      const area = optional(data.get('area'));
+      const division = optional(data.get('division'));
+      const district = optional(data.get('district'));
+      const postalCode = optional(data.get('postalCode'));
+      const deliveryWindow = optional(data.get('deliveryWindow'));
+      const coldStorage = optional(data.get('coldStorage'));
+      const hasHalal = data.get('hasHalal') === 'yes';
+
+      saveUser({
+        email: accountEmail,
+        password,
+        businessName,
+        businessType,
+        tradeLicense,
+        yearsOperating,
+        onlinePresence,
+        contactName,
+        contactRole,
+        contactPhone,
+        contactWhatsapp,
+        contactEmail,
+        contactTime,
+        deliveryAddress,
+        area,
+        division,
+        district,
+        postalCode,
+        deliveryWindow,
+        coldStorage,
+        hasHalal,
+        createdAt: new Date().toISOString(),
+      });
       setSuccess('Account created. Redirecting to login...');
       setSubmitting(false);
       router.push(`/login?signup=success&email=${encodeURIComponent(accountEmail)}`);
@@ -460,83 +488,7 @@ export default function SignupPage() {
           </div>
         </fieldset>
 
-        <fieldset className={formStyles.fieldset}>
-          <legend className={formStyles.legend}>Supply Requirements</legend>
-          <div className={formStyles.field}>
-            <label htmlFor="weekly-volume" className={formStyles.label}>
-              Average Weekly Requirement <span aria-hidden="true">*</span>
-            </label>
-            <select id="weekly-volume" name="weeklyVolume" required className={formStyles.select} defaultValue="">
-              <option value="" disabled>
-                Select volume range (kg)
-              </option>
-              <option value="0-50">Up to 50 kg</option>
-              <option value="50-150">50 – 150 kg</option>
-              <option value="150-300">150 – 300 kg</option>
-              <option value="300-500">300 – 500 kg</option>
-              <option value="500+">500 kg +</option>
-            </select>
-          </div>
-          <div className={formStyles.field}>
-            <span className={formStyles.label}>Products of Interest <span aria-hidden="true">*</span></span>
-            <div className={formStyles.optionGroup}>
-              {productCategories.map((category, index) => {
-                const id = `product-${category.value}`;
-                return (
-                  <div key={category.value} className={formStyles.option}>
-                    <input
-                      id={id}
-                      type="checkbox"
-                      name="productCategories"
-                      value={category.value}
-                      required={index === 0}
-                    />
-                    <label htmlFor={id}>{category.label}</label>
-                  </div>
-                );
-              })}
-            </div>
-            <p className={formStyles.hint}>Select all that apply so we can share the right price list.</p>
-          </div>
-          <div className={[formStyles.row, formStyles.twoCol].join(' ')}>
-            <div className={formStyles.field}>
-              <label htmlFor="payment-pref" className={formStyles.label}>Preferred Payment Method</label>
-              <select id="payment-pref" name="paymentPreference" className={formStyles.select} defaultValue="">
-                <option value="" disabled>
-                  Select payment preference
-                </option>
-                {paymentPreferences.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className={formStyles.field}>
-              <span className={formStyles.label}>Credit Facility Needed?</span>
-              <div className={formStyles.optionInline}>
-                {creditOptions.map((value) => {
-                  const id = `credit-${value.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
-                  return (
-                    <div key={value} className={formStyles.option}>
-                      <input id={id} type="radio" name="creditFacility" value={value} />
-                      <label htmlFor={id}>{value}</label>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-          <div className={formStyles.field}>
-            <label htmlFor="notes" className={formStyles.label}>Additional Notes</label>
-            <textarea
-              id="notes"
-              name="notes"
-              className={formStyles.textarea}
-              placeholder="Let us know about custom cuts, packaging, or compliance requirements."
-            ></textarea>
-          </div>
-        </fieldset>
+        {/* Supply Requirements section removed */}
 
         <fieldset className={formStyles.fieldset}>
           <legend className={formStyles.legend}>Compliance & Consent</legend>

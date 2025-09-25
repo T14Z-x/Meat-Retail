@@ -4,11 +4,24 @@ import Image from 'next/image';
 import { useEffect, useState, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
 import styles from '../../styles/header.module.css';
+import { useAuth } from '../../contexts/AuthContext';
+import { useCart } from '../../contexts/CartContext';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const { user, signOut } = useAuth();
+  const displayName = (() => {
+    if (!user) return 'User';
+    const named = user.name?.trim();
+    if (named) return named;
+    if (user.email) {
+      const [local] = user.email.split('@');
+      if (local) return local;
+    }
+    return 'User';
+  })();
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
     onScroll();
@@ -24,6 +37,11 @@ export default function Header() {
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+
+  const handleLogout = async () => {
+    await signOut();
+    setOpen(false);
+  };
 
   return (
     <header className={[styles.header, scrolled ? styles.scrolled : ''].join(' ')}>
@@ -64,8 +82,24 @@ export default function Header() {
         <div className={styles.utils}>
           <label className="sr-only" htmlFor="site-search">Search</label>
           <input id="site-search" className={styles.search} placeholder="Search products" />
-          <Link href="/signup" className={styles.ctaPrimary}>Become a customer</Link>
-          <Link href="/login" className={styles.ctaSecondary}>Login</Link>
+          <CartMenu />
+          {user ? (
+            <>
+              <Link
+                href="/account"
+                className={[styles.ctaPrimary, styles.userChip].join(' ')}
+                title={user.email}
+              >
+                {displayName}
+              </Link>
+              <button type="button" className={styles.ctaSecondary} onClick={handleLogout}>Logout</button>
+            </>
+          ) : (
+            <>
+              <Link href="/signup" className={styles.ctaPrimary}>Become a customer</Link>
+              <Link href="/login" className={styles.ctaSecondary}>Login</Link>
+            </>
+          )}
         </div>
       </div>
       <nav
@@ -82,5 +116,146 @@ export default function Header() {
         <Link href="/contact-us" onClick={() => setOpen(false)}>CONTACT US</Link>
       </nav>
     </header>
+  );
+}
+
+function CartMenu() {
+  const { items, totalQuantity, formattedTotal, removeItem, clearCart } = useCart();
+  const [isOpen, setIsOpen] = useState(false);
+  const [renderDrawer, setRenderDrawer] = useState(false);
+
+  const hasItems = items.length > 0;
+
+  const openDrawer = () => {
+    if (renderDrawer) {
+      setIsOpen(true);
+      return;
+    }
+    setRenderDrawer(true);
+    requestAnimationFrame(() => setIsOpen(true));
+  };
+
+  const closeDrawer = () => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    if (!renderDrawer) return;
+    if (isOpen) return;
+    const timer = window.setTimeout(() => setRenderDrawer(false), 260);
+    return () => window.clearTimeout(timer);
+  }, [isOpen, renderDrawer]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') closeDrawer();
+    };
+    document.addEventListener('keydown', handleKey);
+    return () => {
+      document.body.style.overflow = previous;
+      document.removeEventListener('keydown', handleKey);
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (items.length === 0) {
+      setIsOpen(false);
+    }
+  }, [items.length]);
+
+  const handleRemove = (slug: string) => {
+    removeItem(slug);
+  };
+
+  return (
+    <div className={styles.cartWrapper}>
+      <button
+        type="button"
+        className={styles.cartBtn}
+        aria-haspopup="dialog"
+        aria-expanded={isOpen}
+        onClick={() => {
+          if (renderDrawer && isOpen) {
+            closeDrawer();
+          } else {
+            openDrawer();
+          }
+        }}
+      >
+        <span className={styles.cartIcon} aria-hidden="true">🛒</span>
+        {totalQuantity > 0 ? (
+          <span className={styles.cartCount} aria-hidden="true">{totalQuantity}</span>
+        ) : null}
+        <span className="sr-only">Cart ({totalQuantity} items)</span>
+      </button>
+      {renderDrawer ? (
+        <div
+          className={[styles.cartOverlay, isOpen ? styles.cartOverlayVisible : ''].join(' ')}
+          role="presentation"
+          onClick={closeDrawer}
+        >
+          <div
+            className={[styles.cartDrawer, isOpen ? styles.cartDrawerOpen : ''].join(' ')}
+            role="dialog"
+            aria-label="Shopping cart"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className={styles.cartPanel}>
+              <div className={styles.cartHeader}>
+                <h3>Cart</h3>
+                <div className={styles.cartHeaderActions}>
+                  {hasItems ? (
+                    <button type="button" className={styles.cartClear} onClick={clearCart}>
+                      Clear all
+                    </button>
+                  ) : null}
+                  <button type="button" className={styles.cartClose} onClick={closeDrawer} aria-label="Close cart">
+                    ×
+                  </button>
+                </div>
+              </div>
+              <div className={styles.cartBody}>
+                {hasItems ? (
+                  <ul className={styles.cartList}>
+                    {items.map((item) => (
+                      <li key={item.slug} className={styles.cartItem}>
+                        <div className={styles.cartItemCopy}>
+                          <span className={styles.cartItemName}>{item.name}</span>
+                          <span className={styles.cartItemMeta}>
+                            {item.quantity} × {item.price}
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          className={styles.cartRemove}
+                          onClick={() => handleRemove(item.slug)}
+                          aria-label={`Remove ${item.name} from cart`}
+                        >
+                          Remove
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className={styles.cartEmpty}>Your cart is empty.</p>
+                )}
+              </div>
+              <div className={styles.cartFooter}>
+                <div>
+                  <span>Total</span>
+                  <strong>{formattedTotal}</strong>
+                </div>
+                <button type="button" className={styles.cartCheckout} disabled={!hasItems}>
+                  Proceed to checkout
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </div>
   );
 }

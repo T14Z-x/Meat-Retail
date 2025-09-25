@@ -15,6 +15,8 @@
 .categoryCard .cardTitle { margin: 0; padding: var(--space-4); background: var(--color-primary); color: #ffffff; text-align: center; }
 .cardBlurb { color: var(--color-muted); margin: var(--space-2) var(--space-4) 0; }
 .cardFooter { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-4); }
+.cardActions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.cardActions :global(.button) { white-space: nowrap; }
 .priceBadge { background: #F2FFE6; color: #2F7F00; padding: 4px 8px; border-radius: 8px; font-weight: 600; }
 
 .ratio { display: block; position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 16px; background: #f8fafc; }

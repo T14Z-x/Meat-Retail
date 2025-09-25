@@ -1,4 +1,4 @@
-// File: /home/tiaz/Development/BengalMeat/app/categories/page.tsx
+// File: /Users/t14z-x/Desktop/Development/BengalMeat/app/categories/page.tsx
 import * as entry from '../../../../app/categories/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

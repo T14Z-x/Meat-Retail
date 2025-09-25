@@ -99,15 +99,33 @@ export default function OffersCarousel() {
     let timer: any;
     const interval = 3000; // slower cadence for offers
     const goNext = () => {
-      if (paused || reduce) return schedule();
-      const next = indexRef.current + 1;
-      const el = slideRefs.current[next];
-      if (el) {
-        vp.scrollTo({ left: el.offsetLeft, behavior: 'smooth' });
-        indexRef.current = next;
+      if (paused || reduce || !inView) return schedule();
+
+      const getNextSlide = () => {
+        const tentative = indexRef.current + 1;
+        const el = slideRefs.current[tentative];
+        if (el) return { index: tentative, element: el };
+
+        ensureLoop();
+        const fallbackIndex = indexRef.current + 1;
+        const fallbackEl = slideRefs.current[fallbackIndex];
+        if (fallbackEl) return { index: fallbackIndex, element: fallbackEl };
+
+        const wrappedIndex = startIndex;
+        const wrappedEl = slideRefs.current[wrappedIndex];
+        if (wrappedEl) return { index: wrappedIndex, element: wrappedEl };
+
+        return null;
+      };
+
+      const next = getNextSlide();
+      if (next) {
+        vp.scrollTo({ left: next.element.offsetLeft, behavior: 'smooth' });
+        indexRef.current = next.index;
         ensureLoop();
         updateTransforms();
       }
+
       schedule();
     };
     const schedule = () => { clearTimeout(timer); timer = setTimeout(goNext, interval); };

@@ -2,6 +2,24 @@ export type StoredUser = {
   email: string;
   password: string;
   businessName?: string;
+  businessType?: string;
+  tradeLicense?: string;
+  yearsOperating?: string;
+  onlinePresence?: string;
+  contactName?: string;
+  contactRole?: string;
+  contactPhone?: string;
+  contactWhatsapp?: string;
+  contactEmail?: string;
+  contactTime?: string;
+  deliveryAddress?: string;
+  area?: string;
+  division?: string;
+  district?: string;
+  postalCode?: string;
+  deliveryWindow?: string;
+  coldStorage?: string;
+  hasHalal?: boolean;
   createdAt: string;
 };
 
@@ -37,9 +55,20 @@ export const findUser = (email: string): StoredUser | undefined => {
   return readUsers().find((u) => u.email.toLowerCase() === email.toLowerCase());
 };
 
-export const setSession = (email: string) => {
+type SessionRecord = {
+  email: string;
+  signedInAt: string;
+  name?: string;
+};
+
+export const setSession = (session: { email: string; name?: string }) => {
   if (!hasWindow()) return;
-  window.localStorage.setItem(SESSION_KEY, JSON.stringify({ email, signedInAt: new Date().toISOString() }));
+  const record: SessionRecord = {
+    email: session.email,
+    name: session.name,
+    signedInAt: new Date().toISOString(),
+  };
+  window.localStorage.setItem(SESSION_KEY, JSON.stringify(record));
 };
 
 export const clearSession = () => {
@@ -47,11 +76,14 @@ export const clearSession = () => {
   window.localStorage.removeItem(SESSION_KEY);
 };
 
-export const getSession = (): { email: string; signedInAt: string } | null => {
+export const getSession = (): SessionRecord | null => {
   if (!hasWindow()) return null;
   try {
     const raw = window.localStorage.getItem(SESSION_KEY);
-    return raw ? JSON.parse(raw) : null;
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') return null;
+    return parsed as SessionRecord;
   } catch (error) {
     console.error('Failed to parse session', error);
     return null;
