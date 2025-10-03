@@ -50,6 +50,10 @@
   }
 }
 
+.panelWide {
+  grid-column: 1 / -1;
+}
+
 .panelCard {
   background: #ffffff;
   border: 1px solid var(--color-border);
@@ -62,6 +66,39 @@
   font-size: 1.1rem;
   font-weight: 700;
   margin-bottom: var(--space-4);
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.panelHeader .panelTitle {
+  margin-bottom: 0;
+}
+
+.panelMessage {
+  margin: 0 0 var(--space-3);
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.panelMessageSuccess {
+  color: #0f766e;
+}
+
+.panelMessageError {
+  color: #dc2626;
+}
+
+.panelNote {
+  margin: 0 0 var(--space-4);
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
 .fieldGrid {
@@ -109,4 +146,239 @@
 
 .emptyCopy a:hover {
   text-decoration: underline;
+}
+
+.passwordForm,
+.formStack {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.formRow {
+  display: grid;
+  gap: 6px;
+}
+
+@media (min-width: 640px) {
+  .formRow {
+    grid-template-columns: 220px 1fr;
+    align-items: center;
+  }
+}
+
+.formLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--color-muted);
+}
+
+.formInput {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  background: #f8fafc;
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(3, 165, 80, 0.12);
+}
+
+.formActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.formMessage {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.formMessageSuccess {
+  color: #0f766e;
+}
+
+.formMessageError {
+  color: #dc2626;
+}
+
+.orderList {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.orderStack {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.orderCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.orderHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.orderId {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.orderMeta {
+  margin: 4px 0 0;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.orderSummary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.orderTotal {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.orderStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.orderStatusProcessing {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.orderStatusPending {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.orderStatusCompleted {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.orderItems {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.orderItem {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.orderItemInfo {
+  display: grid;
+  gap: 4px;
+}
+
+.orderItemName {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.orderItemMeta {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.orderItemSubtotal {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.orderPayment {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-3);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.orderPaymentTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.orderPaymentList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.orderPaymentItem {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.orderPaymentLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.orderPaymentValue {
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+@media (max-width: 640px) {
+  .orderHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .orderSummary {
+    align-items: flex-start;
+  }
+
+  .orderItem {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .orderItemSubtotal {
+    font-size: 0.95rem;
+  }
 }

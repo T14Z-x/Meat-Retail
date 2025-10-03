@@ -20,6 +20,14 @@ export type StoredUser = {
   deliveryWindow?: string;
   coldStorage?: string;
   hasHalal?: boolean;
+  shippingAddress?: string;
+  shippingArea?: string;
+  shippingDivision?: string;
+  shippingDistrict?: string;
+  shippingPostalCode?: string;
+  shippingDeliveryWindow?: string;
+  shippingColdStorage?: string;
+  shippingHasHalal?: boolean;
   createdAt: string;
 };
 

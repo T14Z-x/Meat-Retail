@@ -1,11 +1,13 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from 'react';
+import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import Container from '../../components/ui/Container';
 import SectionHeading from '../../components/ui/SectionHeading';
 import Button from '../../components/ui/Button';
 import { useCart } from '../../contexts/CartContext';
+import { useAuth } from '../../contexts/AuthContext';
+import { appendOrder, StoredOrder, StoredOrderItem } from '../../lib/ordersStorage';
 import styles from '../../styles/checkout.module.css';
 import formStyles from '../../styles/forms.module.css';
 
@@ -209,17 +211,29 @@ const PAYMENT_FIELDS: Record<PaymentMethod['id'], FieldSpec[]> = {
   ],
 };
 
-const INITIAL_FORM_STATE: PaymentFormState = Object.keys(PAYMENT_FIELDS).reduce<PaymentFormState>(
-  (acc, key) => {
-    const methodKey = key as PaymentMethod['id'];
-    acc[methodKey] = PAYMENT_FIELDS[methodKey].reduce<Record<string, string>>((fields, field) => {
+const createInitialFormState = (): PaymentFormState =>
+  PAYMENT_METHODS.reduce<PaymentFormState>((acc, method) => {
+    acc[method.id] = (PAYMENT_FIELDS[method.id] ?? []).reduce<Record<string, string>>((fields, field) => {
       fields[field.id] = '';
       return fields;
     }, {} as Record<string, string>);
     return acc;
-  },
-  {} as PaymentFormState
-);
+  }, {} as PaymentFormState);
+
+const createOrderId = () => {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return `BM-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+  }
+  return `BM-${Date.now().toString(36).toUpperCase()}`;
+};
+
+const formatUsd = (amount: number) => `$${amount.toFixed(2)}`;
+
+const parsePriceValue = (price: string): number => {
+  if (!price) return 0;
+  const numeric = Number.parseFloat(price.replace(/[^0-9.]/g, ''));
+  return Number.isFinite(numeric) ? numeric : 0;
+};
 
 const GATEWAY_GROUPS = [
   {
@@ -243,11 +257,16 @@ const formatBdt = (amount: number) =>
   `BDT ${amount.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
 
 export default function CheckoutPage() {
-  const { items, totalPrice } = useCart();
+  const { user } = useAuth();
+  const { items, totalPrice, clearCart } = useCart();
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethod['id']>(PAYMENT_METHODS[0].id);
-  const [formState, setFormState] = useState<PaymentFormState>(INITIAL_FORM_STATE);
+  const [formState, setFormState] = useState<PaymentFormState>(() => createInitialFormState());
   const [status, setStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [lastOrder, setLastOrder] = useState<StoredOrder | null>(null);
+  const [lastOrderMessage, setLastOrderMessage] = useState<string | null>(null);
   const hasItems = items.length > 0;
+  const submitTimerRef = useRef<number | null>(null);
 
   const { subtotalBdt, deliveryFeeBdt, totalBdt } = useMemo(() => {
     if (!hasItems) {
@@ -273,8 +292,29 @@ export default function CheckoutPage() {
     setStatus(null);
   };
 
+  useEffect(() => {
+    if (items.length > 0) {
+      setLastOrder(null);
+      setLastOrderMessage(null);
+    }
+  }, [items.length]);
+
+  useEffect(() => {
+    return () => {
+      if (submitTimerRef.current) {
+        window.clearTimeout(submitTimerRef.current);
+        submitTimerRef.current = null;
+      }
+    };
+  }, []);
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (isSubmitting) {
+      return;
+    }
+
     setStatus(null);
 
     if (!hasItems) {
@@ -294,11 +334,76 @@ export default function CheckoutPage() {
       return;
     }
 
+    if (!user?.email) {
+      setStatus({
+        type: 'error',
+        message: 'Please sign in before confirming checkout so we can save your order history.',
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setLastOrder(null);
+    setLastOrderMessage(null);
+
     const methodTitle = PAYMENT_METHODS.find((method) => method.id === selectedMethod)?.title ?? 'the selected method';
-    setStatus({
-      type: 'success',
-      message: `Thanks! Your ${methodTitle} details have been captured. Our logistics team will reach out shortly to reconfirm delivery and payment.`,
+    const methodFields = PAYMENT_FIELDS[selectedMethod] ?? [];
+    const paymentDetails = methodFields
+      .map((field) => ({ label: field.label, value: (methodValues[field.id] ?? '').trim() }))
+      .filter((entry) => entry.value.length > 0);
+
+    const orderItems: StoredOrderItem[] = items.map((item) => {
+      const unit = parsePriceValue(item.price);
+      const subtotal = unit * item.quantity;
+      return {
+        slug: item.slug,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        subtotal,
+        subtotalFormatted: formatUsd(subtotal),
+      };
     });
+
+    const merchandiseTotal = orderItems.reduce((sum, line) => sum + line.subtotal, 0);
+    const orderId = createOrderId();
+    const orderRecord: StoredOrder = {
+      id: orderId,
+      email: user.email,
+      createdAt: new Date().toISOString(),
+      status: 'processing',
+      total: merchandiseTotal,
+      totalFormatted: formatUsd(merchandiseTotal),
+      paymentMethod: methodTitle,
+      paymentMethodId: selectedMethod,
+      paymentDetails,
+      items: orderItems,
+    };
+
+    if (submitTimerRef.current) {
+      window.clearTimeout(submitTimerRef.current);
+      submitTimerRef.current = null;
+    }
+
+    submitTimerRef.current = window.setTimeout(() => {
+      try {
+        appendOrder(orderRecord);
+        clearCart();
+        setFormState(createInitialFormState());
+        const confirmationCopy = `Order ${orderId} confirmed. You can review it anytime under Account → Orders.`;
+        setLastOrder(orderRecord);
+        setLastOrderMessage(confirmationCopy);
+      } catch (error) {
+        console.error('Failed to append order', error);
+        setStatus({
+          type: 'error',
+          message: 'We could not finalise your order locally. Please try again.',
+        });
+      } finally {
+        setIsSubmitting(false);
+        submitTimerRef.current = null;
+      }
+    }, 1100);
   };
 
   const renderField = (methodId: PaymentMethod['id'], field: FieldSpec) => {
@@ -358,17 +463,66 @@ export default function CheckoutPage() {
         />
 
         {!hasItems ? (
-          <div className={styles.card} role="status">
-            <h3 className={styles.cardTitle}>Your cart is empty</h3>
-            <p className={styles.copy}>
-              Add products to your cart to start a checkout. Browse our full range in the{' '}
-              <Link href="/products">product catalogue</Link> or explore seasonal offers on the{' '}
-              <Link href="/categories">category pages</Link>.
-            </p>
-          </div>
+          lastOrder ? (
+            <div className={[styles.card, styles.cardSuccess].join(' ')} role="status">
+              <div className={styles.cardSuccessHeader}>
+                <div>
+                  <h3 className={styles.cardTitle}>Order confirmed</h3>
+                  <p className={styles.copy}>{lastOrderMessage ?? 'We have captured your order and will reconfirm shortly.'}</p>
+                </div>
+                <span className={styles.cardSuccessBadge}>{lastOrder.id}</span>
+              </div>
+              <div className={styles.cardSuccessMeta}>
+                <div>
+                  <span className={styles.cardSuccessLabel}>Total</span>
+                  <p className={styles.cardSuccessValue}>{lastOrder.totalFormatted}</p>
+                </div>
+                <div>
+                  <span className={styles.cardSuccessLabel}>Payment</span>
+                  <p className={styles.cardSuccessValue}>{lastOrder.paymentMethod}</p>
+                </div>
+                <div>
+                  <span className={styles.cardSuccessLabel}>Items</span>
+                  <p className={styles.cardSuccessValue}>{lastOrder.items.length}</p>
+                </div>
+              </div>
+              <div className={styles.cardSuccessActions}>
+                <Button href="/account" variant="primary">
+                  View orders
+                </Button>
+                <Button href="/products" variant="secondary">
+                  Continue shopping
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className={styles.card} role="status">
+              <h3 className={styles.cardTitle}>Your cart is empty</h3>
+              <p className={styles.copy}>
+                Add products to your cart to start a checkout. Browse our full range in the{' '}
+                <Link href="/products">product catalogue</Link> or explore seasonal offers on the{' '}
+                <Link href="/categories">category pages</Link>.
+              </p>
+            </div>
+          )
         ) : (
           <div className={styles.layout}>
             <div className={styles.primary}>
+              {isSubmitting ? (
+                <div className={[styles.card, styles.cardProgress].join(' ')} role="status" aria-live="polite">
+                  <div className={styles.progressAnimation} aria-hidden="true">
+                    <div className={styles.progressRoad}>
+                      <span className={styles.progressVehicle} />
+                    </div>
+                  </div>
+                  <div className={styles.progressCopy}>
+                    <h3 className={styles.cardTitle}>Notifying logistics</h3>
+                    <p className={styles.copy}>
+                      Sit tight—your order is already on the move. Our cold-chain team is lining up a chilled dispatch window for you.
+                    </p>
+                  </div>
+                </div>
+              ) : null}
               <form className={[styles.card, styles.paymentForm].join(' ')} onSubmit={handleSubmit} noValidate>
                 <header className={styles.cardHeader}>
                   <div>
@@ -444,7 +598,9 @@ export default function CheckoutPage() {
                   <strong>Need an invoice with VAT?</strong> Let our support team know during the confirmation call and we will email a VAT-signed copy within one business day.
                 </div>
                 <div className={styles.actions}>
-                  <Button type="submit">Confirm order &amp; notify logistics</Button>
+                  <Button type="submit" disabled={isSubmitting} aria-busy={isSubmitting}>
+                    {isSubmitting ? 'Notifying logistics…' : 'Confirm order & notify logistics'}
+                  </Button>
                   <span className={styles.helperText}>We call within 10 minutes to verify delivery window and payment.</span>
                 </div>
               </form>
