@@ -1,6 +1,7 @@
 import Button from '../../components/ui/Button';
-import Container from '../../components/ui/Container';
 import SectionHeading from '../../components/ui/SectionHeading';
+import BlurText from '../../components/ui/BlurText';
+import TypewriterText from '../../components/ui/TypewriterText';
 import styles from '../../styles/faq.module.css';
 
 const faqSections = [
@@ -154,16 +155,47 @@ const timeline = [
 export default function FAQPage() {
   return (
     <section className={styles.page}>
-        <div className={styles.wrapper}>
-          <div className={styles.sectionHead}>
-            <SectionHeading
-              title="Answers tailored to your journey"
-              subtitle="From delivery slots to provenance, explore the details that matter most to households and hospitality partners alike."
+      <div className={styles.hero}>
+        <div className={styles.heroInner}>
+          <div className={styles.heroCopy}>
+            <BlurText
+              as="p"
+              className={styles.kicker}
+              text="Support knowledge base"
+              animateBy="letters"
+              direction="top"
+              delay={60}
+              stepDuration={0.24}
             />
-            <p>Need something specific? Reach out via hotline or WhatsApp and we will create a playbook for your team.</p>
+            <BlurText
+              as="h1"
+              className={styles.heroTitle}
+              text="Answers tailored to your journey"
+              animateBy="words"
+              direction="bottom"
+              delay={120}
+              stepDuration={0.34}
+            />
+            <TypewriterText
+              as="p"
+              className={styles.heroSubhead}
+              text="From delivery slots to provenance, explore the details that matter most to households and hospitality partners alike."
+              speed={26}
+              startDelay={220}
+            />
+            <TypewriterText
+              as="p"
+              className={styles.heroNote}
+              text="Need something specific? Reach out via hotline or WhatsApp and we will create a playbook for your team."
+              speed={26}
+              startDelay={4600}
+            />
           </div>
+        </div>
+      </div>
 
-          <div className={styles.faqGrid}>
+      <div className={styles.wrapper}>
+        <div className={styles.faqGrid}>
             {faqSections.map((group) => (
               <article key={group.id} className={styles.faqGroup} aria-labelledby={`${group.id}-heading`}>
                 <header>

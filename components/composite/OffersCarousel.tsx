@@ -153,7 +153,13 @@ export default function OffersCarousel() {
       <div ref={viewportRef} className={styles.viewport} role="region" aria-roledescription="carousel" tabIndex={0}>
         <div className={styles.track}>
           {slides.map((o, i) => (
-            <div className={styles.slide} key={`${o.title}-${i}`} ref={(el) => (slideRefs.current[i] = el)}>
+            <div
+              className={styles.slide}
+              key={`${o.title}-${i}`}
+              ref={(el) => {
+                slideRefs.current[i] = el;
+              }}
+            >
               <div className={styles.tilt}>
                 <OfferCard title={o.title} blurb={o.blurb} accent={o.accent} />
               </div>

@@ -1,5 +1,7 @@
 import SectionHeading from '../../components/ui/SectionHeading';
 import Button from '../../components/ui/Button';
+import BlurText from '../../components/ui/BlurText';
+import TypewriterText from '../../components/ui/TypewriterText';
 import OutletsTeaser from '../../components/composite/OutletsTeaser';
 import styles from '../../styles/outlets.module.css';
 
@@ -139,12 +141,31 @@ export default function OurOutletsPage() {
       <section className={styles.hero} aria-label="Shukria Meat outlets">
         <div className={styles.heroInner}>
           <div className={styles.heroCopy}>
-            <p className={styles.kicker}>Retail network</p>
-            <h1>Step into spaces built for freshness, storytelling, and service.</h1>
-            <p className={styles.lead}>
-              Shukria Meat outlets combine glass-front butchery, ready-meal ateliers, and concierge desks so every visit feels
-              curated. Experience the same cold-chain precision we promise online, now within welcoming neighbourhood hubs.
-            </p>
+            <BlurText
+              as="p"
+              className={styles.kicker}
+              text="Retail network"
+              animateBy="letters"
+              direction="top"
+              delay={60}
+              stepDuration={0.22}
+            />
+            <BlurText
+              as="h1"
+              className={styles.heroTitle}
+              text="Step into spaces built for freshness, storytelling, and service."
+              animateBy="words"
+              direction="bottom"
+              delay={120}
+              stepDuration={0.35}
+            />
+            <TypewriterText
+              as="p"
+              className={styles.lead}
+              text="Shukria Meat outlets combine glass-front butchery, ready-meal ateliers, and concierge desks so every visit feels curated. Experience the same cold-chain precision we promise online, now within welcoming neighbourhood hubs."
+              speed={28}
+              startDelay={220}
+            />
             <div className={styles.heroActions}>
               <Button href="/contact-us">Book an in-store tasting</Button>
               <Button href="/products" variant="secondary">Browse ready-to-cook range</Button>

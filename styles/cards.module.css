@@ -1,6 +1,56 @@
 .card { border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; background: var(--color-surface); }
 .productCard { transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease; border: 1px solid #000; }
-.categoryCard { background: var(--color-surface); border: 1px solid #000; }
+.categoryCard {
+  position: relative;
+  background: var(--color-surface);
+  border: 1px solid rgba(15, 23, 42, 0.16);
+  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+  isolation: isolate;
+  --spark-x: 50%;
+  --spark-y: 50%;
+  --spark-opacity: 0;
+}
+.categoryCard::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background:
+    radial-gradient(180px circle at var(--spark-x) var(--spark-y), rgba(11, 167, 94, 0.28) 0%, rgba(11, 167, 94, 0.05) 42%, transparent 70%),
+    radial-gradient(320px circle at var(--spark-x) var(--spark-y), rgba(255, 255, 255, 0.55) 0%, transparent 60%);
+  opacity: var(--spark-opacity);
+  transition: opacity 180ms ease;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  z-index: 0;
+}
+.categoryCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(11, 167, 94, 0.08), rgba(3, 102, 74, 0.22));
+  opacity: 0;
+  transition: opacity 200ms ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.categoryCard:hover,
+.categoryCard:focus-within {
+  transform: translateY(-4px);
+  border-color: rgba(11, 167, 94, 0.65);
+  box-shadow: 0 16px 28px rgba(11, 167, 94, 0.18), 0 8px 20px rgba(15, 23, 42, 0.12);
+}
+.categoryCard:hover::after,
+.categoryCard:focus-within::after {
+  opacity: 0.65;
+}
+.categoryCard .ratio,
+.categoryCard .cardTitle,
+.categoryCard .cardTitle span {
+  position: relative;
+  z-index: 1;
+}
 .categoryCard .ratio { border-radius: 16px; }
 .categoryCard .imgFill { object-fit: cover; }
 .productCard .imgFill { transition: transform 300ms ease; will-change: transform; }
@@ -12,7 +62,7 @@
 .cardTitle { margin: var(--space-3) var(--space-4) 0; font-size: var(--fs-lg); }
 .cardTitle a { color: inherit; text-decoration: none; }
 .cardTitle a:hover { text-decoration: underline; }
-.categoryCard .cardTitle { margin: 0; padding: var(--space-4); background: var(--color-primary); color: #ffffff; text-align: center; }
+.categoryCard .cardTitle { margin: 0; padding: var(--space-4); background: var(--color-primary); color: #ffffff; text-align: center; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06); }
 .cardBlurb { color: var(--color-muted); margin: var(--space-2) var(--space-4) 0; }
 .cardFooter { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-4); }
 .cardActions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }

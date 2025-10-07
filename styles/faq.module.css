@@ -1,6 +1,58 @@
 .page {
   background: var(--color-bg);
   padding: clamp(48px, 6vw, 96px) 0;
+  display: grid;
+  gap: clamp(48px, 8vw, 96px);
+}
+
+.hero {
+  background: linear-gradient(135deg, rgba(3, 165, 80, 0.12), rgba(3, 165, 80, 0));
+  border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+}
+
+.heroInner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: clamp(56px, 8vw, 112px) var(--space-4) clamp(32px, 6vw, 64px);
+  display: grid;
+}
+
+.heroCopy {
+  max-width: 60ch;
+  display: grid;
+  gap: var(--space-4);
+  text-align: left;
+}
+
+.kicker {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary-600);
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+  font-weight: 800;
+}
+
+.heroSubhead {
+  margin: 0;
+  font-size: 1.15rem;
+  color: var(--color-muted);
+  line-height: 1.75;
+}
+
+.heroNote {
+  margin: 0;
+  font-weight: 600;
+  color: #0f172a;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
 }
 
 .wrapper {

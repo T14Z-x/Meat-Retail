@@ -71,6 +71,8 @@ const PAYMENT_METHODS: PaymentMethod[] = [
   },
 ];
 
+const DEFAULT_PAYMENT_METHOD_ID = PAYMENT_METHODS[0]?.id ?? 'cod';
+
 const PAYMENT_FIELDS: Record<PaymentMethod['id'], FieldSpec[]> = {
   cod: [
     {
@@ -259,7 +261,7 @@ const formatBdt = (amount: number) =>
 export default function CheckoutPage() {
   const { user } = useAuth();
   const { items, totalPrice, clearCart } = useCart();
-  const [selectedMethod, setSelectedMethod] = useState<PaymentMethod['id']>(PAYMENT_METHODS[0].id);
+  const [selectedMethod, setSelectedMethod] = useState<PaymentMethod['id']>(DEFAULT_PAYMENT_METHOD_ID);
   const [formState, setFormState] = useState<PaymentFormState>(() => createInitialFormState());
   const [status, setStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -322,7 +324,8 @@ export default function CheckoutPage() {
       return;
     }
 
-    const requiredFields = PAYMENT_FIELDS[selectedMethod].filter((field) => field.required);
+    const methodFields = PAYMENT_FIELDS[selectedMethod] ?? [];
+    const requiredFields = methodFields.filter((field) => field.required);
     const methodValues = formState[selectedMethod] ?? {};
     const missing = requiredFields.filter((field) => !methodValues[field.id]?.trim());
 
@@ -347,7 +350,6 @@ export default function CheckoutPage() {
     setLastOrderMessage(null);
 
     const methodTitle = PAYMENT_METHODS.find((method) => method.id === selectedMethod)?.title ?? 'the selected method';
-    const methodFields = PAYMENT_FIELDS[selectedMethod] ?? [];
     const paymentDetails = methodFields
       .map((field) => ({ label: field.label, value: (methodValues[field.id] ?? '').trim() }))
       .filter((entry) => entry.value.length > 0);
@@ -587,7 +589,7 @@ export default function CheckoutPage() {
                         </label>
                         {isActive ? (
                           <div className={styles.methodForm}>
-                            {PAYMENT_FIELDS[methodId].map((field) => renderField(methodId, field))}
+                            {(PAYMENT_FIELDS[methodId] ?? []).map((field) => renderField(methodId, field))}
                           </div>
                         ) : null}
                       </div>

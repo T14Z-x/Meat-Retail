@@ -1,6 +1,7 @@
 "use client";
 
-import { FormEvent, useState } from 'react';
+import { Suspense, useState } from 'react';
+import type { FormEvent } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Container from '../../components/ui/Container';
@@ -11,7 +12,7 @@ import { findUser } from '../../lib/authStorage';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTransitionRouter } from '../../lib/useTransitionRouter';
 
-export default function LoginPage() {
+function LoginPageContent() {
   const { push } = useTransitionRouter();
   const searchParams = useSearchParams();
   const initialEmail = searchParams.get('email') ?? '';
@@ -140,5 +141,13 @@ export default function LoginPage() {
         </fieldset>
       </form>
     </Container>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LoginPageContent />
+    </Suspense>
   );
 }

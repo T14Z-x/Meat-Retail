@@ -62,7 +62,8 @@
   text-transform: uppercase;
   color: var(--color-primary-600);
 }
-.heroInner h1 {
+.heroInner h1,
+.heroTitle {
   margin: 0;
   font-size: clamp(2.5rem, 4vw, 3.25rem);
   max-width: 22ch;

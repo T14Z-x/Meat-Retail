@@ -953,9 +953,9 @@ function ChangePasswordCard({ profile, onProfileChange }: ChangePasswordProps) {
 }
 
 const orderStatusClassMap: Record<StoredOrder['status'], string> = {
-  processing: styles.orderStatusProcessing,
-  'pending-fulfilment': styles.orderStatusPending,
-  completed: styles.orderStatusCompleted,
+  processing: styles.orderStatusProcessing!,
+  'pending-fulfilment': styles.orderStatusPending!,
+  completed: styles.orderStatusCompleted!,
 };
 
 const orderStatusLabelMap: Record<StoredOrder['status'], string> = {

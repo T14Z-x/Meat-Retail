@@ -26,7 +26,8 @@
   text-transform: uppercase;
   color: var(--color-primary-600);
 }
-.heroCopy h1 {
+.heroCopy h1,
+.heroTitle {
   margin: 0;
   font-size: clamp(2.5rem, 4vw, 3.4rem);
   max-width: 24ch;

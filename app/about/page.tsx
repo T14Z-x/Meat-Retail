@@ -1,6 +1,8 @@
 import Container from '../../components/ui/Container';
 import SectionHeading from '../../components/ui/SectionHeading';
 import Button from '../../components/ui/Button';
+import BlurText from '../../components/ui/BlurText';
+import TypewriterText from '../../components/ui/TypewriterText';
 import styles from '../../styles/about.module.css';
 
 const timeline = [
@@ -97,12 +99,31 @@ export default function AboutPage() {
       <section className={styles.hero} aria-label="About us">
         <div className={styles.heroInner}>
           <div className={styles.heroContent}>
-            <p className={styles.kicker}>Inside Shukria Meat</p>
-            <h1>Setting the benchmark for quality proteins in Bangladesh.</h1>
-            <p className={styles.lead}>
-              Shukria Meat unites award‑winning butchers, food scientists, logistics specialists, and service teams under one
-              mission: deliver responsibly sourced meat and ready solutions with precision, warmth, and complete trust.
-            </p>
+            <BlurText
+              as="p"
+              className={styles.kicker}
+              text="Inside Shukria Meat"
+              animateBy="letters"
+              direction="top"
+              delay={60}
+              stepDuration={0.24}
+            />
+            <BlurText
+              as="h1"
+              className={styles.heroTitle}
+              text="Setting the benchmark for quality proteins in Bangladesh."
+              animateBy="words"
+              direction="bottom"
+              delay={110}
+              stepDuration={0.34}
+            />
+            <TypewriterText
+              as="p"
+              className={styles.lead}
+              text="Shukria Meat unites award‑winning butchers, food scientists, logistics specialists, and service teams under one mission: deliver responsibly sourced meat and ready solutions with precision, warmth, and complete trust."
+              speed={28}
+              startDelay={240}
+            />
             <div className={styles.heroActions}>
               <Button href="/products" variant="primary">Browse our catalogue</Button>
               <Button href="/contact-us" variant="secondary">Talk to our team</Button>

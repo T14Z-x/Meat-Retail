@@ -190,7 +190,9 @@ export default function CategoryGrid() {
             <div
               className={styles.slide}
               key={`${c.title}-${i}`}
-              ref={(el) => (slideRefs.current[i] = el)}
+              ref={(el) => {
+                slideRefs.current[i] = el;
+              }}
             >
               <div className={styles.tilt}>
                 <CategoryCard title={c.title} src={c.src} />
